@@ -1,0 +1,30 @@
+.td img {
+    height:50px;
+}
+
+.page-header {
+    text-align:center;
+}
+
+.bg-info {
+    text-align:center;
+    padding:10px;
+}
+
+.bg-success {
+    text-align:center;
+    padding:5px;
+    margin-bottom:40px;
+}
+
+.breaker {
+    margin-bottom:70px;
+}
+
+#tr1 {
+    text-align:center;
+}
+
+#tr2 {
+    text-align:center;
+}
