@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="{{ url('homepage') }}">
+                    <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="navbar-brand"></img>
+                </a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{{ url('homepage') }}">Strona główna</a></li>
+                <li><a href="{{ url('community_index') }}">Społeczność</a></li>
+                <li><a href="{{ url('faq_index') }}">FAQ</a></li>
+                <li><a href="#">Rejestracja/logowanie</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <table class="table">
+        <thead>
+        <tr id="tr1">
+            <td colspan="5">Witaj na forum dyskusyjnym!</td>
+        </tr>
+        <tr id="tr2">
+            <td colspan="5">Jeśli to twoja pierwsza wizyta, zapoznaj się z <a href="{{ url('faq_index') }}">FAQ</a></td>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td id="tdheader" colspan="5"></td>
+        </tr>
+        <tr align="center">
+            <td class="thead" align="left" width="4%" id="mainthead"></td>
+            <td class="thead" align="left" width="60%" id="mainthead">Temat</td>
+            <td class="thead" id="mainthead">Posty</td>
+        </tr>
+        </tbody>
+        <tbody>
+
+
+    {% for row in posts %}
+        <tr align="center">
+            <td class="td"><img src="{{ asset('images/tdlogo.jpg') }}" alt="Logo"></td>
+            <td align="left" class="td"><a href="{{ url('topic_view', {'slug': row.idForumSection, 'id': row.idForumTopic}) }}"
+                                           title="{{ row.nameTopic }}">{{  row.nameTopic  }}</td>
+
+            <td class="td">{{ row.post }}</td>
+
+        </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="{{ url('homepage') }}">
+                    <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="navbar-brand"></img>
+                </a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{{ url('homepage') }}">Strona główna</a></li>
+                <li><a href="{{ url('community_index') }}">Społeczność</a></li>
+                <li><a href="{{ url('faq_index') }}">FAQ</a></li>
+                <li><a href="#">Rejestracja/logowanie</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <p style="font-size:30px; font-weight:bold; text-align:center; margin-top:20px; padding-top:20px; margin-bottom:50px;">{{ topic.0.nameTopic }}</p>
+    {% for top in topic %}
+        <div style="height:200px; width:80%; margin:auto; border:1px solid black; margin-bottom:20px;">
+        <div style="width:10%; float:left; height:100%; border-right:1px dashed black;">
+        <p style="padding:20px;">Nazwa użytkownika<br> {{ top.username }}</p>
+            {% for row in posts %}
+                {% if row.idForumUser == top.idForumUser %}
+                    <p style="padding:20px;">Posty użytkownika<br> {{ row.posts }}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div style="width:85%; float:right; height:auto;">
+        <p style="padding:20px;">{{ top.content }}</p>
+        </div>
+        </div>
+    {% endfor %}
+{% endblock %}
