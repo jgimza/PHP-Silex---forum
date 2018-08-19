@@ -11,12 +11,14 @@ use Controller\SectionController;
 use Controller\TopicController;
 use Repository\SectionRepository;
 use Repository\SubforumRepository;
+use Controller\AuthController;
 
 
 //Request::setTrustedProxies(array('127.0.0.1'));
 $app->get('/', function () use ($app) {
     $sectionRepository = new SectionRepository($app['db']);
     $subforumRepository = new SubforumRepository($app['db']);
+
 
     return $app['twig']->render(
         'index.html.twig',
@@ -33,6 +35,7 @@ $app->get('/', function () use ($app) {
 $app->mount('/faq', new FaqController());
 $app->mount('/community', new CommunityController());
 $app->mount('/', new SectionController());
+$app->mount('/auth', new AuthController());
 $app->mount('/{slug}/topic/', new TopicController());
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
