@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.tag_add'|trans }}{% endblock %}
+
+{% block body %}
+    <h1 style="text-align:center;">{{ 'Rejestracja'|trans }}</h1>
+    {{ form_start(form, { method: 'post', action: url('register') }) }}
+    {{ form_widget(form) }}
+    <input class ="buttoncss2" type="submit" value="{{ 'Zarejestruj'|trans }}" class="btn btn-success" />
+    {{ form_end(form) }}
+{% endblock %}
