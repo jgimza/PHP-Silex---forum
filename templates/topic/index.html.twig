@@ -1,33 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="{{ url('homepage') }}">
-                    <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="navbar-brand"></img>
-                </a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="{{ url('homepage') }}">Strona główna</a></li>
-                <li><a href="{{ url('community_index') }}">Społeczność</a></li>
-                <li><a href="{{ url('faq_index') }}">FAQ</a></li>
-                <li><a href="#">Rejestracja/logowanie</a></li>
-            </ul>
-        </div>
-    </nav>
-
     <table class="table">
         <thead>
-        <tr id="tr1">
-            <td colspan="5">Witaj na forum dyskusyjnym!</td>
-        </tr>
-        <tr id="tr2">
-            <td colspan="5">Jeśli to twoja pierwsza wizyta, zapoznaj się z <a href="{{ url('faq_index') }}">FAQ</a></td>
-        </tr>
+        <tr><h1 style="margin-top:40px; text-align:center; margin-bottom:20px;">{{ section.0.name }}</h1></tr>
         </thead>
 
-        <tbody>
+        <tbody style="border-top:hidden;">
         <tr>
             <td id="tdheader" colspan="5"></td>
         </tr>
@@ -39,20 +18,26 @@
         </tbody>
         <tbody>
 
-
-    {% for row in posts %}
+        {% for row in posts %}
         <tr align="center">
-            <td class="td"><img src="{{ asset('images/tdlogo.jpg') }}" alt="Logo"></td>
+            <td class="td"><img src="{{ asset('images/tdlogo.png') }}" alt="Logo"></td>
             <td align="left" class="td"><a href="{{ url('topic_view', {'slug': row.idForumSection, 'id': row.idForumTopic}) }}"
                                            title="{{ row.nameTopic }}">{{  row.nameTopic  }}</td>
 
             <td class="td">{{ row.post }}</td>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <td><a href="{{ url('topic_edit', {'id': row.idForumTopic, 'slug': slug}) }}" class="btn btn-default"><em class="glyphicon glyphicon-pencil"></em></a></td>
+            <td><a href="{{ url('topic_delete', {'id': row.idForumTopic, 'slug': slug}) }}" class="btn btn-default"><em class="glyphicon glyphicon-trash"></em></a></td>
+            {% else %}
+            {% endif %}
 
         </tr>
     {% endfor %}
         </tbody>
     </table>
-
-
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <button class="buttoncss"><a class="buttoncsstext" href={{ url('topic_add', {'slug': slug}) }}>{{ 'Dodaj temat'|trans }}</a></button>
+    {% else %}
+    {% endif %}
 
 {% endblock %}

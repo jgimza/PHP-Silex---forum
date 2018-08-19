@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.tag_add'|trans }}{% endblock %}
+
+{% block body %}
+    <h1 style="text-align:center;">{{ 'Zmień nazwę tematu'|trans }}</h1>
+    {{ form_start(form, { method: 'post', action: url('topic_edit', {'slug': slug, 'id': id}) }) }}
+    {{ form_widget(form) }}
+    <input class ="buttoncss2" type="submit" value="{{ 'Zmień'|trans }}" class="btn btn-success" />
+    {{ form_end(form) }}
+{% endblock %}
