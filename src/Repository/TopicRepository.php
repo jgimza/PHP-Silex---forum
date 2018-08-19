@@ -86,7 +86,6 @@ class TopicRepository
         return !$result ? [] : $result;
     }
 
-
     protected function queryAll()
     {
         $queryBuilder = $this->db->createQueryBuilder();
@@ -96,6 +95,18 @@ class TopicRepository
             ->leftjoin('t', 'forum_section', 's', 't.idForumSection = s.idForumSection');
 
     }
+
+    public function findSectionName($id)
+    {
+        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder->select('t.idForumSection', 't.nameSection as name')
+            ->from('forum_section', 't')
+            ->where('t.idForumSection =:id')
+            ->setParameter(':id', $id, \PDO::PARAM_INT);
+        $result = $queryBuilder->execute()->fetchAll();
+        return !$result ? [] : $result;
+    }
+
 
     public function findUserPosts()
     {
@@ -109,4 +120,18 @@ class TopicRepository
         return !$result ? [] : $result;
     }
 
+    public function add($data)
+    {
+        $this->db->insert('forum_topic', $data);
+    }
+
+    public function edit($data)
+    {
+        $this->db->update('forum_topic', $data, ['idForumTopic' => $data['idForumTopic']]);
+    }
+
+    public function delete($id)
+    {
+        $this->db->delete('forum_topic', ['idForumTopic' => $id]);
+    }
 }
