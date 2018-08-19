@@ -1,23 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="{{ url('homepage') }}">
-                    <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="navbar-brand"></img>
-                </a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="{{ url('homepage') }}">Strona główna</a></li>
-                <li><a href="{{ url('community_index') }}">Społeczność</a></li>
-                <li><a href="{{ url('faq_index') }}">FAQ</a></li>
-                <li><a href="#">Rejestracja/logowanie</a></li>
-            </ul>
-        </div>
-    </nav>
-
-
     <div style="width:80%; height:auto; margin:auto; border:1px solid black; padding:20px;">
     <p style="padding-top:20px; font-size:30px; border-bottom:1px dashed black;">Nazwa użytkowika: {{ community['username'] }}</p>
     <p style="font-size:20px;">Imie użytkownika: {{ community['name'] }}<p/>
@@ -26,5 +9,4 @@
     <p style="font-size:20px;">Data urodzenia użytkownika: {{ community['birthdate'] }}</p>
     <p style="padding-bottom:20px; font-size:20px;">Ilość postów: {{ post['posts'] }}</p>
     </div>
-
 {% endblock %}
