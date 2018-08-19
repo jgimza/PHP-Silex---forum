@@ -1,41 +1,29 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="{{ url('homepage') }}">
-                    <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="navbar-brand"></img>
-                </a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="{{ url('homepage') }}">Strona główna</a></li>
-                <li><a href="{{ url('community_index') }}">Społeczność</a></li>
-                <li><a href="{{ url('faq_index') }}">FAQ</a></li>
-                <li><a href="#">Rejestracja/logowanie</a></li>
-            </ul>
-        </div>
-    </nav>
-
     <div class="table-responsive">
         <table class="table">
-            <thead>
-            <tr id="tr1">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <tr id="tr1" style="display:none; border-top:hidden;">
                 <td colspan="5">Witaj na forum dyskusyjnym!</td>
             </tr>
-            <tr id="tr2">
-                <td colspan="5">Jeśli to twoja pierwsza wizyta, zapoznaj się z <a href="{{ url('faq_index') }}">FAQ</a></td>
-            </tr>
-            <tr align="center">
+                <tr id="tr2" style="display:none;">
+                    <td colspan="5">Jeśli to twoja pierwsza wizyta, zapoznaj się z <a href="{{ url('faq_index') }}">FAQ</a></td>
+                </tr>
+            {% else %}
+                <tr id="tr1" style="border-top:hidden;">
+                    <td colspan="5">Witaj na forum dyskusyjnym!</td>
+                </tr>
+                <tr id="tr2">
+                    <td colspan="5">Jeśli to twoja pierwsza wizyta, zapoznaj się z <a href="{{ url('faq_index') }}">FAQ</a></td>
+                </tr>
+            {% endif %}
+            <tr align="center" style="border-top:hidden;">
                 <td class="thead" align="left" width="4%" id="mainthead"></td>
-                <td class="thead" align="left" width="60%" id="mainthead">Forum</td>
+                <td class="thead" align="left" width="60%" id="mainthead"></td>
                 <td class="thead" id="mainthead">Wątki</td>
                 <td class="thead" id="mainthead">Posty</td>
             </tr>
             </thead>
-
-
             {% for sub in subforum %}
             <tr>
                 <td id="tdheader" colspan="5">{{ sub.name }}</td>
@@ -44,7 +32,7 @@
             {% for row in topics %}
             {% if row.idSubforum==sub.idSubforum %}
                 <tr align="center">
-                    <td class="td"><img src="{{ asset('images/tdlogo.jpg') }}" alt="Logo"></td>
+                    <td class="td"><img src="{{ asset('images/tdlogo.png') }}" alt="Logo"></td>
                     <td align="left" class="td"><div><a href="{{ url('topic_index', {'slug': row.idForumSection}) }}" title="{{ row.nameSection }}">{{ row.nameSection }}</div></td>
                     <td class="td">{{ row.topics }}</td>
                     <td class="td">{{ row.posts }}</td>
@@ -53,7 +41,8 @@
             </tbody>
             {% endfor %}
             {% endfor %}
-
         </table>
     </div>
 {% endblock %}
+
+

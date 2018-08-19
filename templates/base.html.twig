@@ -1,20 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% block head %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css" />
-
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/bootstrap-theme.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
-
-    <title>{% block title %}Default title{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <title>Forum dyskusyjne</title>
+    {% endblock %}
 </head>
 <body>
-{% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+    {% block nav %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="{{ url('homepage') }}">
+                    <img id="logo" src="{{ asset('images/logo.png') }}" alt="Logo" class="navbar-brand"></img>
+                </a>
+            </div>
+            <ul class="nav navbar-nav" style="padding-bottom:30px;">
+                <li class="active"><a href="{{ url('homepage') }}">Strona główna</a></li>
+                <li><a href="{{ url('community_index') }}">Społeczność</a></li>
+                <li><a href="{{ url('faq_index') }}">FAQ</a></li>
+
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li style="display:none;"><a href="{{ url('register') }}">Rejestracja</a></li>
+                {% else %}
+                    <li><a href="{{ url('register') }}">Rejestracja</a></li>
+                {% endif %}
+
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li><a href="{{ url('auth_logout') }}" title="{{ 'auth.logout.label'|trans }}">
+                            {{ 'Wyloguj'|trans }}
+                        </a></li>
+                {% else %}
+                    <li class="register"><a href="{{ url('auth_login') }}" title="{{ 'auth.login.label'|trans }}">
+                            {{ 'Zaloguj'|trans }}
+                        </a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    {% endblock %}
+    {% block body %}
+    {% endblock %}
+{% block footer %}
+    <footer class="page-footer navbar-fixed-bottom">
+
+        <div class="footer-copyright text-center py-3">© 2018 Copyright: Jakub Gimza
+            <a href="https://github.com/jgimza">(Github)</a>
+        </div>
+
+
+    </footer>
+{% endblock %}
 </body>
+{% block javascripts %}{% endblock %}
 </html>
