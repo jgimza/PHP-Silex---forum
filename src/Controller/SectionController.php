@@ -22,7 +22,9 @@ class SectionController implements ControllerProviderInterface
     {
         $controller = $app['controllers_factory'];
         $controller->get('', [$this, 'indexAction'])->bind('section_index');
-        $controller->get('{id}', [$this, 'viewAction'])->bind('section_view');
+        $controller->get('{id}', [$this, 'viewAction'])
+            ->assert('id', '[1-9][0-9]*')
+            ->bind('section_view');
 
         return $controller;
     }
@@ -50,11 +52,9 @@ class SectionController implements ControllerProviderInterface
     public function viewAction(Application $app, $id)
     {
         $sectionRepository = new SectionRepository($app['db']);
-
         return $app['twig']->render(
             'section/view.html.twig',
             [
-
                 'section' => $sectionRepository->findOneById($id),
             ]
         );
