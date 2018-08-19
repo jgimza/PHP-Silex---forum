@@ -1,30 +1,140 @@
+body{
+    font-size:20px;
+    font-family: 'Lato', sans-serif;
+}
+#logo{
+    height:100px;
+    margin-right:100px;
+    padding-bottom:10px;
+}
+#mainthead{
+    font-weight:bold;
+}
+#tdheader{
+    font-weight:bold;
+    font-size:22px;
+}
+nav{
+    font-size:22px;
+    font-weight:bold;
+    padding-top:20px;
+    padding-bottom:20px;
+    font-family: 'Lato', sans-serif;
+    text-transform:uppercase;
+}
+nav li{
+    margin-left:30px;
+    padding-top:30px;
+}
 .td img {
     height:50px;
 }
-
 .page-header {
     text-align:center;
 }
-
 .bg-info {
     text-align:center;
     padding:10px;
 }
-
 .bg-success {
     text-align:center;
     padding:5px;
     margin-bottom:40px;
 }
-
 .breaker {
     margin-bottom:70px;
 }
-
 #tr1 {
+    text-align:center;
+    border-bottom:hidden;
+}
+#tr2 {
+    text-align:center;
+    border-bottom:hidden;
+}
+.register{
+}
+
+footer{
+    height:30px;
+    background-color:#f2f2f2;
+    position:Absolute;
+    bottom:0;
+    width:100%;
+}
+
+.buttoncss{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    text-align: center;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    padding: 10px 24px;
+    margin-left:40px;
+    margin-top:40px;
+    color:white;
+    text-decoration: none;
+}
+
+.buttoncss2{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    text-align: center;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    padding: 10px 24px;
+    margin-left:40px;
+    margin-top:40px;
+    color:white;
+    text-decoration: none;
+    display:block;
+    margin:0 auto;
+}
+
+.buttoncsstext{
+    text-decoration: none;
+    color:white;
+    font-size: 20px;
+}
+
+#content_type{
+    text-align:center;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+#content_type label{
+    margin-right:20px;
+}
+
+.form_group{
     text-align:center;
 }
 
-#tr2 {
+#register_type{
     text-align:center;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+#register_type label{
+    margin-right:20px;
+}
+#register_type div{
+    margin-bottom:20px;
+}
+
+#login_type{
+    text-align:center;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+#login_type label{
+    margin-right:20px;
+}
+#login_type div{
+    margin-bottom:20px;
 }
