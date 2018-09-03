@@ -1,12 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div style="width:80%; height:auto; margin:auto; border:1px solid black; padding:20px;">
-    <p style="padding-top:20px; font-size:30px; border-bottom:1px dashed black;">Nazwa użytkowika: {{ community['username'] }}</p>
-    <p style="font-size:20px;">Imie użytkownika: {{ community['name'] }}<p/>
-    <p style="font-size:20px;">Nazwisko użytkownika: {{ community['surname'] }}</p>
-    <p style="font-size:20px;">Email użytkownika: {{ community['email'] }}</p>
-    <p style="font-size:20px;">Data urodzenia użytkownika: {{ community['birthdate'] }}</p>
-    <p style="padding-bottom:20px; font-size:20px;">Ilość postów: {{ post['posts'] }}</p>
+
+    <div style="width:60%; height:auto; margin:auto; border:1px solid #4CAF50; padding:20px; margin-top:30px;">
+    <p style="padding-top:20px; font-size:25px; border-bottom:1px solid #4CAF50;">{{ 'Nazwa użytkownika'|trans }}: {{ community['username'] }}</p>
+    <p style="font-size:20px;">{{ 'Imię'|trans }}: {{ community['name'] }}</p>
+    <p style="font-size:20px;">{{ 'Nazwisko'|trans }}: {{ community['surname'] }}</p>
+    <p style="font-size:20px;">{{ 'Email'|trans }}: {{ community['email'] }}</p>
+    <p style="font-size:20px;">{{ 'Data urodzenia'|trans }}: {{ community['birthdate'] }}</p>
+    <p style="padding-bottom:20px; font-size:20px;">{{ 'Ilość postów'|trans }}: {{ post['posts'] }}</p>
     </div>
+
+    {% if ( community['role'] != adminrole) %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ url('makeadmin', {'id': id}) }}" title="{{ 'auth.makeadmin.label'|trans }}" class="buttoncss3" onclick="return confirm('Jesteś pewien?')" >{{ 'Nadaj uprawnienia administratora'|trans }}</a>
+        {% endif %}
+    {% endif %}
+
 {% endblock %}

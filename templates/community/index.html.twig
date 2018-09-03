@@ -1,17 +1,21 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
+
     <div class="table-responsive">
         <table class="table">
             <thead>
+
             <tr id="tr1">
-                <td colspan="5"><h1>Lista użytkowników</h1></td>
+                <td colspan="5"><h1>{{ 'Lista użytkowników'|trans }}</h1></td>
             </tr>
             </thead>
 
             <tr align="center">
                 <td class="thead" align="left" width="4%" id="mainthead"></td>
-                <td class="thead" align="left" width="60%" id="mainthead">Nazwa użytkownika</td>
+                <td class="thead" align="left" width="60%" id="mainthead">{{ 'Nazwa użytkownika'|trans }}</td>
             </tr>
+
             <tbody>
             {% for row in communities %}
             <tr align="center">
@@ -22,4 +26,5 @@
             </tbody>
         </table>
     </div>
+
 {% endblock %}
