@@ -16,7 +16,7 @@ class UniqueLogin extends Constraint
      *
      * @var string $message
      */
-    public $message = '{{ tag }} is not unique Login.';
+    public $message = 'Login nie jest unikalny.';
 
     /**
      * Element id.

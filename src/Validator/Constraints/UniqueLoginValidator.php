@@ -28,7 +28,6 @@ class UniqueLoginValidator extends ConstraintValidator
 
         if ($result && count($result)) {
             $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ tag }}', $value)
                 ->addViolation();
         }
     }
