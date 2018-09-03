@@ -11,6 +11,11 @@
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <title>Forum dyskusyjne</title>
+        <script src="{{ asset('js/tinymce.min.js') }}"></script>
+        <script>tinymce.init({
+                selector:'textarea',
+                plugins: 'code'
+            });</script>
     {% endblock %}
 </head>
 
