@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     {% block head %}
     <meta charset="utf-8">
@@ -12,24 +13,26 @@
     <title>Forum dyskusyjne</title>
     {% endblock %}
 </head>
+
 <body>
+
     {% block nav %}
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a href="{{ url('homepage') }}">
+                <a href="{{ url('homepage') }}" title="{{ 'auth.homepage.label'|trans }}">
                     <img id="logo" src="{{ asset('images/logo.png') }}" alt="Logo" class="navbar-brand"></img>
                 </a>
             </div>
             <ul class="nav navbar-nav" style="padding-bottom:30px;">
-                <li class="active"><a href="{{ url('homepage') }}">Strona główna</a></li>
-                <li><a href="{{ url('community_index') }}">Społeczność</a></li>
-                <li><a href="{{ url('faq_index') }}">FAQ</a></li>
+                <li class="active"><a href="{{ url('homepage') }}" title="{{ 'auth.homepage.label'|trans }}">{{ 'Strona główna'|trans }}</a></li>
+                <li><a href="{{ url('community_index') }}" title="{{ 'auth.community.label'|trans }}">{{ 'Społeczność'|trans }}</a></li>
+                <li><a href="{{ url('faq_index') }}" title="{{ 'auth.faq.label'|trans }}">{{ 'FAQ'|trans }}</a></li>
 
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li style="display:none;"><a href="{{ url('register') }}">Rejestracja</a></li>
+                    <li style="display:none;"><a href="{{ url('register') }}" title="{{ 'auth.register.label'|trans }}">Rejestracja</a></li>
                 {% else %}
-                    <li><a href="{{ url('register') }}">Rejestracja</a></li>
+                    <li><a href="{{ url('register') }}" title="{{ 'auth.register.label'|trans }}">{{ 'Rejestracja'|trans }}</a></li>
                 {% endif %}
 
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
@@ -41,22 +44,33 @@
                             {{ 'Zaloguj'|trans }}
                         </a></li>
                 {% endif %}
+
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li><a href="{{ url('changepass') }}" title="{{ 'auth.changepass.label'|trans }}">
+                            {{ 'Zmień hasło'|trans }}
+                        </a></li>
+                {% endif %}
+
             </ul>
         </div>
     </nav>
     {% endblock %}
+
     {% block body %}
     {% endblock %}
+
 {% block footer %}
     <footer class="page-footer navbar-fixed-bottom">
 
         <div class="footer-copyright text-center py-3">© 2018 Copyright: Jakub Gimza
             <a href="https://github.com/jgimza">(Github)</a>
         </div>
-
-
     </footer>
 {% endblock %}
+
 </body>
-{% block javascripts %}{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
 </html>

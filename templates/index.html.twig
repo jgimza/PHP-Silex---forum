@@ -1,28 +1,33 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
+
     <div class="table-responsive">
         <table class="table">
+
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <tr id="tr1" style="display:none; border-top:hidden;">
-                <td colspan="5">Witaj na forum dyskusyjnym!</td>
+                <td colspan="5">{{ '|trans' }}Witaj na forum dyskusyjnym!</td>
             </tr>
                 <tr id="tr2" style="display:none;">
-                    <td colspan="5">Jeśli to twoja pierwsza wizyta, zapoznaj się z <a href="{{ url('faq_index') }}">FAQ</a></td>
+                    <td colspan="5">{{ 'Jeśli to twoja pierwsza wizyta, zapoznaj się z'|trans }} <a href="{{ url('faq_index') }}" title="{{ 'auth.faq.label'|trans }}">{{ 'FAQ'|trans }}</a></td>
                 </tr>
             {% else %}
                 <tr id="tr1" style="border-top:hidden;">
-                    <td colspan="5">Witaj na forum dyskusyjnym!</td>
+                    <td colspan="5">{{ 'Witaj na forum dyskusyjnym!'|trans }}</td>
                 </tr>
                 <tr id="tr2">
-                    <td colspan="5">Jeśli to twoja pierwsza wizyta, zapoznaj się z <a href="{{ url('faq_index') }}">FAQ</a></td>
+                    <td colspan="5">{{ 'Jeśli to twoja pierwsza wizyta, zapoznaj się z'|trans }} <a href="{{ url('faq_index') }}" title="{{ 'auth.faq.label'|trans }}">{{ 'FAQ'|trans }}</a></td>
                 </tr>
             {% endif %}
+
             <tr align="center" style="border-top:hidden;">
                 <td class="thead" align="left" width="4%" id="mainthead"></td>
                 <td class="thead" align="left" width="60%" id="mainthead"></td>
-                <td class="thead" id="mainthead">Wątki</td>
-                <td class="thead" id="mainthead">Posty</td>
+                <td class="thead" id="mainthead">{{ 'Wątki'|trans }}</td>
+                <td class="thead" id="mainthead">{{ 'Posty'|trans }}</td>
             </tr>
+
             </thead>
             {% for sub in subforum %}
             <tr>
@@ -41,8 +46,10 @@
             </tbody>
             {% endfor %}
             {% endfor %}
+
         </table>
     </div>
+
 {% endblock %}
 
 
