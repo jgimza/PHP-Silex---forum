@@ -3,9 +3,12 @@
 {% block title %}{{ 'title.tag_add'|trans }}{% endblock %}
 
 {% block body %}
+
     <h1 style="text-align:center;">{{ 'Rejestracja'|trans }}</h1>
+    {% form_theme form with ['bootstrap_3_horizontal_layout.html.twig'] %}
     {{ form_start(form, { method: 'post', action: url('register') }) }}
     {{ form_widget(form) }}
-    <input class ="buttoncss2" type="submit" value="{{ 'Zarejestruj'|trans }}" class="btn btn-success" />
+    <input class ="buttoncss2" type="submit" title="{{ 'auth.register.label'|trans }}" value="{{ 'Zarejestruj'|trans }}" class="btn btn-success" />
     {{ form_end(form) }}
+
 {% endblock %}

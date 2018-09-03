@@ -3,8 +3,9 @@
 {% block title %}{{ 'title.auth_login'|trans }}{% endblock %}
 
 {% block body %}
+
     {% form_theme form with ['form/form_errors.html.twig'] %}
-    <h1 style="text-align:center;">{{ 'Logowanie'|trans }}</h1>
+    <h1 style="text-align:center; margin-bottom:20px;">{{ 'Logowanie'|trans }}</h1>
 
     {% if error is defined and error|length %}
         {% include 'default/_single_alert_message.html.twig' with {
@@ -16,9 +17,11 @@
     {% endif %}
 
     <div>
+        {% form_theme form with ['bootstrap_3_horizontal_layout.html.twig'] %}
         {{ form_start(form, { method: 'post', action: path('auth_login_check') }) }}
         {{ form_widget(form) }}
-        <input class="buttoncss2 "type="submit" value="{{ 'Zaloguj'|trans }}" class="btn btn-success" />
+        <input class="buttoncss2 "type="submit" title="{{ 'auth.login.label'|trans }}" value="{{ 'Zaloguj'|trans }}" class="btn btn-success" />
         {{ form_end(form) }}
     </div>
+
 {% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.tag_add'|trans }}{% endblock %}
+
+{% block body %}
+
+    <h1 style="text-align:center;">{{ 'Zmień hasło'|trans }}</h1>
+
+    {% form_theme form with ['bootstrap_3_horizontal_layout.html.twig'] %}
+    {{ form_start(form, { method: 'post', action: url('changepass') }) }}
+    {{ form_widget(form) }}
+    <input class="buttoncss2" type="submit" title="{{ 'auth.changepass.label'|trans }}" value="{{ 'Zmień'|trans }}" class="btn btn-success" />
+    {{ form_end(form) }}
+
+{% endblock %}
