@@ -13,8 +13,6 @@ use Silex\Provider\FormServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 
-
-
 $app = new Application();
 $app->register(new ServiceControllerServiceProvider());
 $app->register(new AssetServiceProvider());
@@ -93,10 +91,14 @@ $app->register(
         'security.access_rules' => [
             ['^/auth.+$', 'IS_AUTHENTICATED_ANONYMOUSLY'],
             ['^/community.+$', 'IS_AUTHENTICATED_ANONYMOUSLY'],
+            ['^/[1-3]/topic/edit/[0-9]+$', 'ROLE_ADMIN'],
+            ['^/[1-3]/topic/delete/[0-9]+$', 'ROLE_ADMIN'],
+            ['^/[1-3]/topic/close/[0-9]+$', 'ROLE_ADMIN'],
             ['^/[1-3]/topic.+$', 'IS_AUTHENTICATED_ANONYMOUSLY'],
-            ['^/auth.+$', 'IS_AUTHENTICATED_ANONYMOUSLY'],
             ['^/faq.+$', 'IS_AUTHENTICATED_ANONYMOUSLY'],
-            ['^/[0-9][0-9]*/topic.+$', 'ROLE_USER'],
+            ['^/[1-9]*/topic.+$', 'ROLE_USER'],
+            ['^/post/delete/[0-9]+$', 'ROLE_USER'],
+            ['^/post/edit/[0-9]+$', 'ROLE_USER'],
             ['^/.+$', 'ROLE_ADMIN'],
         ],
         'security.role_hierarchy' => [
@@ -104,5 +106,4 @@ $app->register(
         ],
     ]
 );
-
 return $app;
