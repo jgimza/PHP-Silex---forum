@@ -27,7 +27,7 @@ class PostType extends AbstractType
             TextareaType::class,
             [
                 'label' => 'Post',
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'max_length' => 10000,
                 ],
