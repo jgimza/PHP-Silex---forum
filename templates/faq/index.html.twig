@@ -1,63 +1,51 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="{{ url('homepage') }}">
-                    <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="navbar-brand"></img>
-                </a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="{{ url('homepage') }}">Strona główna</a></li>
-                <li><a href="{{ url('community_index') }}">Społeczność</a></li>
-                <li><a href="{{ url('faq_index') }}">FAQ</a></li>
-                <li><a href="#">Rejestracja/logowanie</a></li>
-            </ul>
-        </div>
-    </nav>
 
     <div class="page-header">
-        <h1>FAQ</h1>
+        <h1 style="margin-bottom:30px;">FAQ</h1>
     </div>
 
     <div class="container">
-        <div class="jumbotron">
-            <h1>De Finibus Bonorum et Malorum</h1>
-            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-                voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id
-                est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
-                quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-                Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et
-                voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a
-                sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis
-                doloribus asperiores repellat.</p>
-        </div>
-        <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled
-            and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee
-            the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty
-            through weakness of will, which is the same as saying through shrinking from toil and pain.
-            These cases are perfectly simple and easy to distinguish.</p>
-        <p class="breaker">In a free hour, when our power of choice is untrammelled and when nothing prevents our being able
-            to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances
-            and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to
-            be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of
-            selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.</p>
 
-        <p class="bg-info">Sed ut perspiciatis unde omnis iste natus error sit voluptatem?</p>
-        <p class="bg-success">In a free hour, when our power of choice.</p>
-        <p class="bg-info">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil?</p>
-        <p class="bg-success">The wise man therefore always holds.</p>
-        <p class="bg-info">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium?</p>
-        <p class="bg-success">Which is the same as saying through shrinking from.</p>
-        <p class="bg-info">Temporibus autem quibusdam et aut officiis debitis?</p>
-        <p class="bg-success">Or else he endures pains to avoid worse pains.</p>
-        <p class="bg-info">Itaque earum rerum hic tenetur a
-            sapiente delectus, ut aut reiciendis?</p>
-        <p class="bg-success">He rejects pleasures to secure other greater pleasures.</p>
+        <div class="jumbotron">
+            <h1 style="text-align:center; margin-bottom:20px;">Witaj na forum dyskusyjnym!</h1>
+            <p style="text-align:center;">Forum to powstało jako projekt zaliczeniowy na zajęcia Systemy Interakcyjne na kierunku Elektroniczne Przetwarzanie Informacji.</p>
+        </div>
+
+        <div class="jumbotron" style="text-align:center;">Jak korzystać z forum:</div>
+        <p class="bg-info" style="margin-bottom:30px;">Wsytarczy założyć konto pod <a style="text-decoration: underline;" href="{{ url('register') }}">tym adresem</a> aby uzyskać uprawnienia użytkownika.</p>
+
+        <div class="jumbotron" style="text-align:center;">Funkcjonalności forum:</div>
+        <p class="bg-info">Rejestracja i logowanie</p>
+        <p class="bg-info">Tworzenie, edycja i usuwanie tematów</p>
+        <p class="bg-info">Tworzenie, edycja i usuwanie postów</p>
+        <p class="bg-info">Zamykanie tematów</p>
+        <p class="bg-info">Nadawanie uprawnień administratora</p>
+        <p class="bg-info">Zliczanie ilości tematów i postów w działach oraz postów w tematach</p>
+        <p class="bg-info">Zliczanie postów użytkowników</p>
+        <p class="bg-info" style="margin-bottom:30px;">Wiele funkcjonalności dodatkowych, jak np. podział użytkowników na role (gość, zalogowany, administrator), kontrola
+        dostępu do poszczególnych elementów aplikacji, pełne tłumaczenie w wersji angielskiej.</p>
+
+        <p class="center">Wykorzystane technologie:</p>
+        <p class="center">- PHP</p>
+        <p class="center">- HTML</p>
+        <p class="center">- CSS</p>
+        <p class="center">- Bootstrap</p>
+        <p class="center">- Silex</p>
+        <p class="center">- Twig</p>
+        <p class="center">- Doctrine DBAL</p>
+        <p class="center" style="margin-bottom:30px;">- Silex Skeleton</p>
+
     </div>
 
+    <div style="margin-bottom:80px; display:block; text-align:center;">
+    <p>
+            <img style="border:0;width:88px;height:31px"
+                 src="http://jigsaw.w3.org/css-validator/images/vcss"
+                 alt="Poprawny CSS!">
+        </a>
+    </p>
+    </div>
 
 {% endblock %}
