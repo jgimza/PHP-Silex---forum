@@ -1,6 +1,6 @@
 <?php
 /**
- * Tag controller.
+ * Section controller.
  */
 namespace Controller;
 
@@ -9,15 +9,17 @@ use Silex\Api\ControllerProviderInterface;
 use Repository\SectionRepository;
 
 /**
- * Class TagController.
+ * Class SectionController.
  *
  * @package Controller
  */
+
 class SectionController implements ControllerProviderInterface
 {
     /**
      * {@inheritdoc}
      */
+
     public function connect(Application $app)
     {
         $controller = $app['controllers_factory'];
@@ -25,10 +27,8 @@ class SectionController implements ControllerProviderInterface
         $controller->get('{id}', [$this, 'viewAction'])
             ->assert('id', '[1-9][0-9]*')
             ->bind('section_view');
-
         return $controller;
     }
-
     /**
      * Index action.
      *
@@ -36,10 +36,10 @@ class SectionController implements ControllerProviderInterface
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      */
+
     public function indexAction(Application $app)
     {
         $sectionRepository = new SectionRepository($app['db']);
-
 
         return $app['twig']->render(
             'index.html.twig',
@@ -52,6 +52,8 @@ class SectionController implements ControllerProviderInterface
     public function viewAction(Application $app, $id)
     {
         $sectionRepository = new SectionRepository($app['db']);
+        dump($sectionRepository->findAll());
+
         return $app['twig']->render(
             'section/view.html.twig',
             [
@@ -59,5 +61,4 @@ class SectionController implements ControllerProviderInterface
             ]
         );
     }
-
 }
