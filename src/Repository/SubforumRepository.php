@@ -1,16 +1,17 @@
 <?php
 /**
- * Tag repository.
+ * Subforum repository.
  */
 namespace Repository;
 
 use Doctrine\DBAL\Connection;
 
 /**
- * Class TagRepository.
+ * Class SubforumRepository.
  *
  * @package Repository
  */
+
 class SubforumRepository
 {
     /**
@@ -18,23 +19,24 @@ class SubforumRepository
      *
      * @var \Doctrine\DBAL\Connection $db
      */
-    protected $db;
 
+    protected $db;
     /**
-     * TagRepository constructor.
+     * SubforumRepository constructor.
      *
      * @param \Doctrine\DBAL\Connection $db
      */
+
     public function __construct(Connection $db)
     {
         $this->db = $db;
     }
-
     /**
      * Fetch all records.
      *
      * @return array Result
      */
+
     public function findAll()
     {
         $queryBuilder = $this->queryAll();
@@ -44,7 +46,6 @@ class SubforumRepository
     protected function queryAll()
     {
         $queryBuilder = $this->db->createQueryBuilder();
-
         return $queryBuilder->select('s.name', 's.idSubforum')
             ->from('forum_subforum', 's');
     }

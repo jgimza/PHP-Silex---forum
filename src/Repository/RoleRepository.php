@@ -1,16 +1,17 @@
 <?php
 /**
- * Tag repository.
+ * Role repository.
  */
 namespace Repository;
 
 use Doctrine\DBAL\Connection;
 
 /**
- * Class TagRepository.
+ * Class RoleRepository.
  *
  * @package Repository
  */
+
 class RoleRepository
 {
     /**
@@ -18,13 +19,15 @@ class RoleRepository
      *
      * @var \Doctrine\DBAL\Connection $db
      */
+
     protected $db;
 
     /**
-     * TagRepository constructor.
+     * RoleRepository constructor.
      *
      * @param \Doctrine\DBAL\Connection $db
      */
+
     public function __construct(Connection $db)
     {
         $this->db = $db;
@@ -33,24 +36,20 @@ class RoleRepository
     public function getUserID()
     {
         $queryBuilder = $this->db->createQueryBuilder();
-
         $queryBuilder->select('idForumUserRole')
             ->from('forum_userrole')
             ->where('name = :name')
             ->setParameter(':name', "ROLE_USER", \PDO::PARAM_STR);
-
         return $queryBuilder->execute()->fetch()['idForumUserRole'];
     }
 
     public function getAdminID()
     {
         $queryBuilder = $this->db->createQueryBuilder();
-
         $queryBuilder->select('idForumUserRole')
             ->from('forum_userrole')
             ->where('name = :name')
             ->setParameter(':name', "ROLE_ADMIN", \PDO::PARAM_STR);
-
         return $queryBuilder->execute()->fetch()['idForumUserRole'];
     }
 }

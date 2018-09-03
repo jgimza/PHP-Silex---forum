@@ -1,16 +1,17 @@
 <?php
 /**
- * Tag repository.
+ * Topic repository.
  */
 namespace Repository;
 
 use Doctrine\DBAL\Connection;
 
 /**
- * Class TagRepository.
+ * Class TopicRepository.
  *
  * @package Repository
  */
+
 class TopicRepository
 {
     /**
@@ -18,29 +19,29 @@ class TopicRepository
      *
      * @var \Doctrine\DBAL\Connection $db
      */
-    protected $db;
 
+    protected $db;
     /**
-     * TagRepository constructor.
+     * TopicRepository constructor.
      *
      * @param \Doctrine\DBAL\Connection $db
      */
+
     public function __construct(Connection $db)
     {
         $this->db = $db;
     }
-
     /**
      * Fetch all records.
      *
      * @return array Result
      */
+
     public function findAll($id)
     {
         $queryBuilder = $this->queryAll();
         return $queryBuilder->execute()->fetchAll();
     }
-
     /**
      * Query all records.
      *
@@ -53,15 +54,24 @@ class TopicRepository
         $queryBuilder->where('t.idForumTopic = :id')
             ->setParameter(':id', $id, \PDO::PARAM_INT);
         $result = $queryBuilder->execute()->fetch();
-
         return !$result ? [] : $result;
     }
 
+    public function findIfOpen($id)
+    {
+        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder->select('t.open')
+            ->from('forum_topic', 't')
+            ->where('t.idForumTopic = :id')
+            ->setParameter(':id', $id, \PDO::PARAM_INT);
+        $result = $queryBuilder->execute()->fetch();
+        return !$result ? [] : $result;
+    }
 
     public function findPostData($id)
     {
         $queryBuilder = $this->db->createQueryBuilder();
-        $queryBuilder->select('p.idForumPost', 'p.content', 'p.idForumUser', 't.idForumTopic', 't.idForumSection', 't.nameTopic')
+        $queryBuilder->select('p.idForumPost', 'p.content', 'p.idForumUser', 'p.createdAt as created', 't.idForumTopic', 't.idForumSection', 't.nameTopic')
             ->from('forum_post', 'p')
             ->leftjoin('p', 'forum_topic', 't', 'p.idForumTopic = t.idForumTopic')
             ->leftjoin('p', 'forum_user', 'u', 'p.idForumUser = u.idForumUser')
@@ -89,11 +99,9 @@ class TopicRepository
     protected function queryAll()
     {
         $queryBuilder = $this->db->createQueryBuilder();
-
         return $queryBuilder->select('t.nameTopic', 't.idForumSection', 't.idForumTopic', 's.idForumSection')
             ->from('forum_topic', 't')
             ->leftjoin('t', 'forum_section', 's', 't.idForumSection = s.idForumSection');
-
     }
 
     public function findSectionName($id)
@@ -106,7 +114,6 @@ class TopicRepository
         $result = $queryBuilder->execute()->fetchAll();
         return !$result ? [] : $result;
     }
-
 
     public function findUserPosts()
     {
@@ -133,5 +140,15 @@ class TopicRepository
     public function delete($id)
     {
         $this->db->delete('forum_topic', ['idForumTopic' => $id]);
+    }
+
+    public function closeTopic($id)
+    {
+        $this->db->update('forum_topic', ['open' => 0], ['idForumTopic' => $id]);
+    }
+
+    public function addpost($data)
+    {
+        $this->db->insert('forum_post', $data);
     }
 }

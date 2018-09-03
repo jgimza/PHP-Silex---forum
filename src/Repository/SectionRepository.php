@@ -1,16 +1,17 @@
 <?php
 /**
- * Tag repository.
+ * Section repository.
  */
 namespace Repository;
 
 use Doctrine\DBAL\Connection;
 
 /**
- * Class TagRepository.
+ * Class SectionRepository.
  *
  * @package Repository
  */
+
 class SectionRepository
 {
     /**
@@ -18,23 +19,24 @@ class SectionRepository
      *
      * @var \Doctrine\DBAL\Connection $db
      */
-    protected $db;
 
+    protected $db;
     /**
-     * TagRepository constructor.
+     * SectionRepository constructor.
      *
      * @param \Doctrine\DBAL\Connection $db
      */
+
     public function __construct(Connection $db)
     {
         $this->db = $db;
     }
-
     /**
      * Fetch all records.
      *
      * @return array Result
      */
+
     public function findAll()
     {
         $queryBuilder = $this->queryAll();
@@ -46,13 +48,13 @@ class SectionRepository
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder Result
      */
+
     public function findOneById($id)
     {
         $queryBuilder = $this->queryAll();
         $queryBuilder->where('t.idForumSection = :id')
             ->setParameter(':id', $id, \PDO::PARAM_INT);
         $result = $queryBuilder->execute()->fetch();
-
         return !$result ? [] : $result;
     }
 
@@ -74,11 +76,8 @@ class SectionRepository
     {
         $queryBuilder = $this->db->createQueryBuilder();
 
-        return $queryBuilder->select('s.name', 's.idSubforum as idSub', 't.idForumSection', 't.nameSection', 't.idSubforum')
+        return $queryBuilder->select('t.idForumSection', 't.nameSection', 't.idSubforum', 's.name', 's.idSubforum as idSub')
             ->from('forum_section', 't')
-            ->join('t', 'forum_subforum', 's', 's.idSubforum = t.idSubforum');
-
+            ->leftJoin('t', 'forum_subforum', 's', 's.idSubforum = t.idSubforum');
     }
-
-
 }

@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 /**
  * Class UserRepository.
  */
+
 class UserRepository
 {
     /**
@@ -19,18 +20,18 @@ class UserRepository
      *
      * @var \Doctrine\DBAL\Connection $db
      */
-    protected $db;
 
+    protected $db;
     /**
-     * TagRepository constructor.
+     * UserRepository constructor.
      *
      * @param \Doctrine\DBAL\Connection $db
      */
+
     public function __construct(Connection $db)
     {
         $this->db = $db;
     }
-
     /**
      * Loads user by login.
      *
@@ -40,6 +41,7 @@ class UserRepository
      *
      * @return array Result
      */
+
     public function loadUserByLogin($login)
     {
         try {
@@ -72,7 +74,6 @@ class UserRepository
             throw $exception;
         }
     }
-
     /**
      * Gets user data by login.
      *
@@ -81,6 +82,7 @@ class UserRepository
      *
      * @return array Result
      */
+
     public function getUserByLogin($username)
     {
         try {
@@ -95,7 +97,6 @@ class UserRepository
             return [];
         }
     }
-
     /**
      * Gets user roles by User ID.
      *
@@ -104,6 +105,7 @@ class UserRepository
      *
      * @return array Result
      */
+
     public function getUserRoles($userId)
     {
         $roles = [];
@@ -131,7 +133,6 @@ class UserRepository
     {
         $this->db->insert('forum_user', $date);
     }
-
     /**
      * Find for uniqueness.
      *
@@ -140,6 +141,12 @@ class UserRepository
      *
      * @return array Result
      */
+
+    public function addData($personal)
+    {
+        $this->db->insert('forum_user_data', $personal);
+    }
+
     public function findForUniqueness($name, $id = null)
     {
         $queryBuilder = $this->queryAll();
@@ -151,6 +158,11 @@ class UserRepository
         }
 
         return $queryBuilder->execute()->fetchAll();
+    }
+
+    public function update($data)
+    {
+        $this->db->update('forum_user', $data, ['idForumUser' => $data['idForumUser']]);
     }
 
     private function queryAll()
