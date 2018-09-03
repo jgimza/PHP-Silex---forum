@@ -2,9 +2,229 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="pl" datatype="plaintext" original="file.ext">
         <body>
-            <trans-unit id="title.bookmarks_list">
-                <source>title.bookmarks_list</source>
-                <target>Lista zakładek</target>
+            <trans-unit id="auth.logout.label">
+                <source>auth.logout.label</source>
+                <target>Wyloguj</target>
+            </trans-unit>
+            <trans-unit id="Wyloguj">
+                <source>Wyloguj</source>
+                <target>Wyloguj</target>
+            </trans-unit>
+            <trans-unit id="Bad credentials.">
+                <source>Bad credentials.</source>
+                <target>Wprowadzono niepoprawne dane.</target>
+            </trans-unit>
+            <trans-unit id="auth.login.label">
+                <source>auth.login.label</source>
+                <target>Zaloguj</target>
+            </trans-unit>
+            <trans-unit id="Zaloguj">
+                <source>Zaloguj</source>
+                <target>Zaloguj</target>
+            </trans-unit>
+            <trans-unit id="auth.homepage.label">
+                <source>auth.homepage.label</source>
+                <target>Strona główna</target>
+            </trans-unit>
+            <trans-unit id="auth.community.label">
+                <source>auth.community.label</source>
+                <target>Społeczność</target>
+            </trans-unit>
+            <trans-unit id="auth.faq.label">
+                <source>auth.faq.label</source>
+                <target>FAQ</target>
+            </trans-unit>
+            <trans-unit id="auth.register.label">
+                <source>auth.register.label</source>
+                <target>Rejestracja</target>
+            </trans-unit>
+            <trans-unit id="Rejestracja">
+                <source>Rejestracja</source>
+                <target>Rejestracja</target>
+            </trans-unit>
+            <trans-unit id="Strona główna">
+                <source>Strona główna</source>
+                <target>Strona główna</target>
+            </trans-unit>
+            <trans-unit id="Społeczność">
+                <source>Społeczność</source>
+                <target>Społeczność</target>
+            </trans-unit>
+            <trans-unit id="FAQ">
+                <source>FAQ</source>
+                <target>FAQ</target>
+            </trans-unit>
+            <trans-unit id="Witaj na forum dyskusyjnym!">
+                <source>Witaj na forum dyskusyjnym!</source>
+                <target>Witaj na forum dyskusyjnym!</target>
+            </trans-unit>
+            <trans-unit id="Jeśli to twoja pierwsza wizyta, zapoznaj się z">
+                <source>Jeśli to twoja pierwsza wizyta, zapoznaj się z</source>
+                <target>Jeśli to twoja pierwsza wizyta, zapoznaj się z</target>
+            </trans-unit>
+            <trans-unit id="Wątki">
+                <source>Wątki</source>
+                <target>Wątki</target>
+            </trans-unit>
+            <trans-unit id="Posty">
+                <source>Posty</source>
+                <target>Posty</target>
+            </trans-unit>
+            <trans-unit id="Logowanie">
+                <source>Logowanie</source>
+                <target>Logowanie</target>
+            </trans-unit>
+            <trans-unit id="Login">
+                <source>Login</source>
+                <target>Login</target>
+            </trans-unit>
+            <trans-unit id="Hasło">
+                <source>Hasło</source>
+                <target>Hasło</target>
+            </trans-unit>
+            <trans-unit id="auth.changepass.label">
+                <source>auth.changepass.label</source>
+                <target>Zmień hasło</target>
+            </trans-unit>
+            <trans-unit id="Zmień hasło">
+                <source>Zmień hasło</source>
+                <target>Zmień hasło</target>
+            </trans-unit>
+            <trans-unit id="Powtórz hasło">
+                <source>Powtórz hasło</source>
+                <target>Powtórz hasło</target>
+            </trans-unit>
+            <trans-unit id="Imię">
+                <source>Imię</source>
+                <target>Imię</target>
+            </trans-unit>
+            <trans-unit id="Nazwisko">
+                <source>Nazwisko</source>
+                <target>Nazwisko</target>
+            </trans-unit>
+            <trans-unit id="Email">
+                <source>Email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="Data urodzenia">
+                <source>Data urodzenia</source>
+                <target>Data urodzenia</target>
+            </trans-unit>
+            <trans-unit id="Year">
+                <source>Year</source>
+                <target>Rok</target>
+            </trans-unit>
+            <trans-unit id="Month">
+                <source>Month</source>
+                <target>Miesiąc</target>
+            </trans-unit>
+            <trans-unit id="Day">
+                <source>Day</source>
+                <target>Dzień</target>
+            </trans-unit>
+            <trans-unit id="Zarejestruj">
+                <source>Zarejestruj</source>
+                <target>Zarejestruj</target>
+            </trans-unit>
+            <trans-unit id="Lista użytkowników">
+                <source>Lista użytkowników</source>
+                <target>Lista użytkowników</target>
+            </trans-unit>
+            <trans-unit id="Nazwa użytkownika">
+                <source>Nazwa użytkownika</source>
+                <target>Nazwa użytkownika</target>
+            </trans-unit>
+            <trans-unit id="Ilość postów">
+                <source>Ilość postów</source>
+                <target>Ilość postów</target>
+            </trans-unit>
+            <trans-unit id="Temat">
+                <source>Temat</source>
+                <target>Temat</target>
+            </trans-unit>
+            <trans-unit id="Zmień">
+                <source>Zmień</source>
+                <target>Zmień</target>
+            </trans-unit>
+            <trans-unit id="Dodaj temat">
+                <source>Dodaj temat</source>
+                <target>Dodaj temat</target>
+            </trans-unit>
+            <trans-unit id="auth.edit.label">
+                <source>auth.edit.label</source>
+                <target>Edytuj</target>
+            </trans-unit>
+            <trans-unit id="auth.delete.label">
+                <source>auth.delete.label</source>
+                <target>Usuń</target>
+            </trans-unit>
+            <trans-unit id="Zmień nazwę tematu">
+                <source>Zmień nazwę tematu</source>
+                <target>Zmień nazwę tematu</target>
+            </trans-unit>
+            <trans-unit id="Nazwa tematu">
+                <source>Nazwa tematu</source>
+                <target>Nazwa tematu</target>
+            </trans-unit>
+            <trans-unit id="Post">
+                <source>Post</source>
+                <target>Post</target>
+            </trans-unit>
+            <trans-unit id="Dodaj">
+                <source>Dodaj</source>
+                <target>Dodaj</target>
+            </trans-unit>
+            <trans-unit id="auth.add.label">
+                <source>auth.add.label</source>
+                <target>Dodaj</target>
+            </trans-unit>
+            <trans-unit id="Utworzono">
+                <source>Utworzono</source>
+                <target>Utworzono</target>
+            </trans-unit>
+            <trans-unit id="Posty użytkownika">
+                <source>Posty użytkownika</source>
+                <target>Posty użytkownika</target>
+            </trans-unit>
+            <trans-unit id="Usuń post">
+                <source>Usuń post</source>
+                <target>Usuń post</target>
+            </trans-unit>
+            <trans-unit id="TEMAT ZAMKNIĘTY">
+                <source>TEMAT ZAMKNIĘTY</source>
+                <target>TEMAT ZAMKNIĘTY</target>
+            </trans-unit>
+            <trans-unit id="auth.close.label">
+                <source>auth.close.label</source>
+                <target>Zamknij</target>
+            </trans-unit>
+            <trans-unit id="Dodaj odpowiedź">
+                <source>Dodaj odpowiedź</source>
+                <target>Dodaj odpowiedź</target>
+            </trans-unit>
+            <trans-unit id="auth.answer.label">
+                <source>auth.answer.label</source>
+                <target>Odpowiedz</target>
+            </trans-unit>
+            <trans-unit id="Odpowiedz">
+                <source>Odpowiedz</source>
+                <target>Odpowiedz</target>
+            </trans-unit>
+            <trans-unit id="Zamknij temat">
+                <source>Zamknij temat</source>
+                <target>Zamknij temat</target>
+            </trans-unit>
+            <trans-unit id="Edytuj post">
+                <source>Edytuj post</source>
+                <target>Edytuj post</target>
+            </trans-unit>
+            <trans-unit id="Nadaj uprawnienia administratora">
+                <source>Nadaj uprawnienia administratora</source>
+                <target>Nadaj uprawnienia administratora</target>
+            </trans-unit>
+            <trans-unit id="auth.makeadmin.label">
+                <source>auth.makeadmin.label</source>
+                <target>Nadaj uprawnienia administratora</target>
             </trans-unit>
         </body>
     </file>
