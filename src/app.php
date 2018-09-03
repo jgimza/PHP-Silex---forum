@@ -89,6 +89,7 @@ $app->register(
             ],
         ],
         'security.access_rules' => [
+            ['^/auth/makeadmin/[0-9]+$', 'ROLE_ADMIN'],
             ['^/auth.+$', 'IS_AUTHENTICATED_ANONYMOUSLY'],
             ['^/community.+$', 'IS_AUTHENTICATED_ANONYMOUSLY'],
             ['^/[1-3]/topic/edit/[0-9]+$', 'ROLE_ADMIN'],
