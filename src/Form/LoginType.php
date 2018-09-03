@@ -14,11 +14,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class LoginType.
  */
+
 class LoginType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
@@ -42,6 +44,7 @@ class LoginType extends AbstractType
                 ],
             ]
         );
+
         $builder->add(
             'password',
             PasswordType::class,
@@ -64,10 +67,10 @@ class LoginType extends AbstractType
             ]
         );
     }
-
     /**
      * {@inheritdoc}
      */
+
     public function getBlockPrefix()
     {
         return 'login_type';
