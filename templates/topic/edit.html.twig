@@ -3,9 +3,13 @@
 {% block title %}{{ 'title.tag_add'|trans }}{% endblock %}
 
 {% block body %}
-    <h1 style="text-align:center;">{{ 'Zmień nazwę tematu'|trans }}</h1>
+
+    <h1 style="text-align:center; margin-bottom:20px;">{{ 'Zmień nazwę tematu'|trans }}</h1>
+
+    {% form_theme form with ['bootstrap_3_horizontal_layout.html.twig'] %}
     {{ form_start(form, { method: 'post', action: url('topic_edit', {'slug': slug, 'id': id}) }) }}
     {{ form_widget(form) }}
-    <input class ="buttoncss2" type="submit" value="{{ 'Zmień'|trans }}" class="btn btn-success" />
+    <input class ="buttoncss2" type="submit" title="{{ 'auth.edit.label'|trans }}" value="{{ 'Zmień'|trans }}" class="btn btn-success" />
     {{ form_end(form) }}
+
 {% endblock %}

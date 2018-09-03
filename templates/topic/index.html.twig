@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
     <table class="table">
+
         <thead>
         <tr><h1 style="margin-top:40px; text-align:center; margin-bottom:20px;">{{ section.0.name }}</h1></tr>
         </thead>
@@ -12,28 +14,27 @@
         </tr>
         <tr align="center">
             <td class="thead" align="left" width="4%" id="mainthead"></td>
-            <td class="thead" align="left" width="60%" id="mainthead">Temat</td>
-            <td class="thead" id="mainthead">Posty</td>
+            <td class="thead" align="left" width="60%" id="mainthead">{{ 'Temat'|trans }}</td>
+            <td class="thead" id="mainthead">{{ 'Posty'|trans }}</td>
         </tr>
         </tbody>
-        <tbody>
 
+        <tbody>
         {% for row in posts %}
         <tr align="center">
             <td class="td"><img src="{{ asset('images/tdlogo.png') }}" alt="Logo"></td>
             <td align="left" class="td"><a href="{{ url('topic_view', {'slug': row.idForumSection, 'id': row.idForumTopic}) }}"
                                            title="{{ row.nameTopic }}">{{  row.nameTopic  }}</td>
-
             <td class="td">{{ row.post }}</td>
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <td><a href="{{ url('topic_edit', {'id': row.idForumTopic, 'slug': slug}) }}" class="btn btn-default"><em class="glyphicon glyphicon-pencil"></em></a></td>
-            <td><a href="{{ url('topic_delete', {'id': row.idForumTopic, 'slug': slug}) }}" class="btn btn-default"><em class="glyphicon glyphicon-trash"></em></a></td>
+            {% if is_granted('ROLE_ADMIN') %}
+            <td><a href="{{ url('topic_edit', {'id': row.idForumTopic, 'slug': slug}) }}" title="{{ 'auth.edit.label'|trans }}" class="btn btn-default"><em class="glyphicon glyphicon-pencil"></em></a></td>
+            <td><a href="{{ url('topic_delete', {'id': row.idForumTopic, 'slug': slug})}}" title="{{ 'auth.delete.label'|trans }}" onclick="return confirm('Jesteś pewien?')" class="btn btn-default"><em class="glyphicon glyphicon-trash"></em></a></td>
             {% else %}
             {% endif %}
-
         </tr>
     {% endfor %}
         </tbody>
+
     </table>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     <button class="buttoncss"><a class="buttoncsstext" href={{ url('topic_add', {'slug': slug}) }}>{{ 'Dodaj temat'|trans }}</a></button>
