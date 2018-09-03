@@ -16,15 +16,15 @@
         </div>
 
         <div style="width:auto; height:auto;">
-        {% if ( top.idForumUser == currentuserid) %}
+        {% if ( top.idForumUser == currentuserid) and open['open'] == 1 %}
             <a href="{{ url('post_edit', {'id': top.idForumPost}) }}" title="{{ 'auth.edit.label'|trans }}" class="buttoncss4">{{ 'Edytuj post'|trans }}</a>
             <a href="{{ url('post_delete', {'id': top.idForumPost}) }}" title="{{ 'auth.delete.label'|trans }}" class="buttoncss4">{{ 'Usuń post'|trans }}</a>
             <br>
-        {% elseif is_granted('ROLE_ADMIN') %}
+        {% elseif is_granted('ROLE_ADMIN') and open['open'] == 1 %}
                 <a href="{{ url('post_delete', {'id': top.idForumPost}) }}" title="{{ 'auth.delete.label'|trans }}" class="buttoncss4">{{ 'Usuń post'|trans }}</a>
             <br>
                 {% endif %}
-        <p style="padding:20px; margin-top:20px; margin-left:20px;">{{ top.content }}</p>
+        <p style="padding:20px; margin-top:20px; margin-left:20px;">{{ top.content|raw }}</p>
         </div>
         </div>
     {% endfor %}
