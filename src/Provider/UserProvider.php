@@ -14,6 +14,7 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 /**
  * Class UserProvider.
  */
+
 class UserProvider implements UserProviderInterface
 {
     /**
@@ -21,6 +22,7 @@ class UserProvider implements UserProviderInterface
      *
      * @var \Doctrine\DBAL\Connection $db
      */
+
     protected $db;
 
     /**
@@ -28,6 +30,7 @@ class UserProvider implements UserProviderInterface
      *
      * @param \Doctrine\DBAL\Connection $db
      */
+
     public function __construct(Connection $db)
     {
         $this->db = $db;
@@ -40,6 +43,7 @@ class UserProvider implements UserProviderInterface
      *
      * @return User Result
      */
+
     public function loadUserByUsername($login)
     {
         $userRepository = new UserRepository($this->db);
@@ -55,7 +59,6 @@ class UserProvider implements UserProviderInterface
             true
         );
     }
-
     /**
      * Refresh user.
      *
@@ -63,6 +66,7 @@ class UserProvider implements UserProviderInterface
      *
      * @return User Result
      */
+
     public function refreshUser(UserInterface $user)
     {
         if (!$user instanceof User) {
@@ -76,7 +80,6 @@ class UserProvider implements UserProviderInterface
 
         return $this->loadUserByUsername($user->getUsername());
     }
-
     /**
      * Check if supports selected class.
      *
@@ -84,6 +87,7 @@ class UserProvider implements UserProviderInterface
      *
      * @return bool
      */
+
     public function supportsClass($class)
     {
         return $class === 'Symfony\Component\Security\Core\User\User';
