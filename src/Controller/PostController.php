@@ -47,7 +47,12 @@ class PostController implements ControllerProviderInterface
             return $app->redirect($app['url_generator']->generate('homepage'));
         }
 
-        $slug = $topicRepository->findOneById($data['idForumTopic'])['idForumSection'];
+        $topic = $topicRepository->findOneById($data['idForumTopic']);
+        $slug = $topic['idForumSection'];
+
+        if($topic['open'] == 0) {
+            return $app->redirect($app['url_generator']->generate('homepage'));
+        }
 
         $form = $app['form.factory']->createBuilder(PostType::class, $data)->getForm();
         $form->handleRequest($request);
@@ -80,11 +85,18 @@ class PostController implements ControllerProviderInterface
         $topicRepository = new TopicRepository($app['db']);
         $data = $postRepository->findOneById($id);
 
-        if ($data['idForumUser'] != $this->getUserID($app)) {
+
+        if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN') && $data['idForumUser'] != $this->getUserID($app)) {
             return $app->redirect($app['url_generator']->generate('homepage'));
         }
 
-        $slug = $topicRepository->findOneById($data['idForumTopic'])['idForumSection'];
+        $topic = $topicRepository->findOneById($data['idForumTopic']);
+        $slug = $topic['idForumSection'];
+
+        if($topic['open'] == 0) {
+            return $app->redirect($app['url_generator']->generate('homepage'));
+        }
+
         $postRepository->delete($data['idForumPost']);
         if ($topicRepository->findPostData($data['idForumTopic'])) {
             return $app->redirect($app['url_generator']->generate('topic_view', array('id' => $data['idForumTopic'], 'slug' => $slug)));

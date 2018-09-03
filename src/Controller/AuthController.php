@@ -78,6 +78,13 @@ class AuthController implements ControllerProviderInterface
         $app['session']->clear();
         return $app['twig']->render('auth/logout.html.twig', []);
     }
+    /**
+     *
+     *
+     * @param Application $app
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
 
     public function changepassAction(Application $app, Request $request)
     {
@@ -108,6 +115,13 @@ class AuthController implements ControllerProviderInterface
             ]
         );
     }
+    /**
+     *
+     *
+     * @param Application $app
+     * @param int $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
 
     public function makeadminAction(Application $app, $id)
     {

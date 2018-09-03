@@ -94,6 +94,10 @@ class TopicController implements ControllerProviderInterface
             );
             return $app->redirect($app['url_generator']->generate('topic_view', array('id' => $id, 'slug' => $slug)));
         }
+        $userID = -1;
+        if($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $userID = $this->getUserID($app);
+        }
         return $app['twig']->render(
             'topic/view.html.twig',
             [
@@ -101,7 +105,7 @@ class TopicController implements ControllerProviderInterface
                 'topic' => $topicRepository->findPostData($id),
                 'posts' => $topicRepository->findUserPosts(),
                 'open' => $topicRepository->findIfOpen($id),
-                'currentuserid' => $this->getUserID($app),
+                'currentuserid' => $userID,
                 'slug' => $slug,
                 'id' => $id,
             ]
