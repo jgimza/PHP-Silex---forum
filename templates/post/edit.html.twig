@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.tag_add'|trans }}{% endblock %}
+
+{% block body %}
+
+    <h1 style="text-align:center;">{{ 'Edytuj post'|trans }}</h1>
+
+    {{ form_start(form, { method: 'post', action: url('post_edit', {'id': id}) }) }}
+    {{ form_widget(form) }}
+    <input class ="buttoncss2" type="submit" title="{{ 'auth.edit.label'|trans }}" value="{{ 'Zmień'|trans }}" class="btn btn-success" />
+    {{ form_end(form) }}
+
+{% endblock %}
