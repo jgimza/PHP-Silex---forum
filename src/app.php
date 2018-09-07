@@ -1,4 +1,7 @@
 <?php
+/**
+ * Init application.
+ */
 
 use Silex\Application;
 use Silex\Provider\AssetServiceProvider;
@@ -90,6 +93,9 @@ $app->register(
         ],
         'security.access_rules' => [
             ['^/auth/makeadmin/[0-9]+$', 'ROLE_ADMIN'],
+            ['^/auth/makeuser/[0-9]+$', 'ROLE_ADMIN'],
+            ['^/auth/blockuser/[0-9]+$', 'ROLE_ADMIN'],
+            ['^/auth/unblockuser/[0-9]+$', 'ROLE_ADMIN'],
             ['^/auth.+$', 'IS_AUTHENTICATED_ANONYMOUSLY'],
             ['^/community.+$', 'IS_AUTHENTICATED_ANONYMOUSLY'],
             ['^/[1-3]/topic/edit/[0-9]+$', 'ROLE_ADMIN'],
