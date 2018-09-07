@@ -13,7 +13,6 @@ class controllersTest extends WebTestCase
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertContains('Welcome', $crawler->filter('body')->text());
     }
-
     public function createApplication()
     {
         $app = require __DIR__.'/../src/app.php';
