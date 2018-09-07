@@ -16,8 +16,12 @@ use Repository\SectionRepository;
 
 class SectionController implements ControllerProviderInterface
 {
+
     /**
-     * {@inheritdoc}
+     * Routing settings.
+     *
+     * @param Application $app
+     * @return mixed
      */
 
     public function connect(Application $app)
@@ -29,12 +33,12 @@ class SectionController implements ControllerProviderInterface
             ->bind('section_view');
         return $controller;
     }
+
     /**
      * Index action.
      *
-     * @param \Silex\Application $app Silex application
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     * @param Application $app
+     * @return mixed
      */
 
     public function indexAction(Application $app)
@@ -48,6 +52,14 @@ class SectionController implements ControllerProviderInterface
             ]
         );
     }
+
+    /**
+     * View action.
+     *
+     * @param Application $app
+     * @param int $id
+     * @return mixed
+     */
 
     public function viewAction(Application $app, $id)
     {

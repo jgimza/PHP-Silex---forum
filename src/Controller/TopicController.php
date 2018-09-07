@@ -22,8 +22,12 @@ use Repository\TopicRepository;
 
 class TopicController implements ControllerProviderInterface
 {
+
     /**
-     * {@inheritdoc}
+     * Routing settings.
+     *
+     * @param Application $app
+     * @return mixed
      */
 
     public function connect(Application $app)
@@ -49,27 +53,44 @@ class TopicController implements ControllerProviderInterface
             ->bind('topic_close');
         return $controller;
     }
+
     /**
      * Index action.
      *
-     * @param \Silex\Application $app Silex application
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     * @param Application $app
+     * @param int $slug
+     * @return mixed
      */
 
     public function indexAction(Application $app, $slug)
     {
         $topicRepository = new TopicRepository($app['db']);
 
+        $blocked = -1;
+        if($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $blocked = $this->isBlocked($app);
+        }
+
         return $app['twig']->render(
             'topic/index.html.twig',
             [
                 'posts' => $topicRepository->findNofPosts($slug),
                 'slug' => $slug,
-                'section' => $topicRepository->findSectionName($slug)
+                'section' => $topicRepository->findSectionName($slug),
+                'isblocked' => $blocked,
             ]
         );
     }
+
+    /**
+     * View action.
+     *
+     * @param Application $app
+     * @param int $slug
+     * @param int $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
 
     public function viewAction(Application $app, $slug, $id, Request $request)
     {
@@ -94,10 +115,17 @@ class TopicController implements ControllerProviderInterface
             );
             return $app->redirect($app['url_generator']->generate('topic_view', array('id' => $id, 'slug' => $slug)));
         }
+
         $userID = -1;
         if($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
             $userID = $this->getUserID($app);
         }
+
+        $blocked = -1;
+        if($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $blocked = $this->isBlocked($app);
+        }
+
         return $app['twig']->render(
             'topic/view.html.twig',
             [
@@ -105,6 +133,7 @@ class TopicController implements ControllerProviderInterface
                 'topic' => $topicRepository->findPostData($id),
                 'posts' => $topicRepository->findUserPosts(),
                 'open' => $topicRepository->findIfOpen($id),
+                'isblocked' => $blocked,
                 'currentuserid' => $userID,
                 'slug' => $slug,
                 'id' => $id,
@@ -112,15 +141,51 @@ class TopicController implements ControllerProviderInterface
         );
     }
 
+    /**
+     * Close topic action.
+     *
+     * @param Application $app
+     * @param int $slug
+     * @param int $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+
     public function closeTopicAction(Application $app, $slug, $id)
     {
+
+        // Check if user is blocked
+        if($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $blocked = $this->isBlocked($app);
+            if($blocked == 0){
+                return $app->redirect($app['url_generator']->generate('homepage'));
+            }
+        }
+
         $topicRepository = new TopicRepository($app['db']);
         $topicRepository->closeTopic($id);
         return $app->redirect($app['url_generator']->generate('topic_view', array('id' => $id, 'slug' => $slug)));
     }
 
+    /**
+     * Add topic action.
+     *
+     * @param Application $app
+     * @param int $slug
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+
     public function addAction(Application $app, $slug, Request $request)
     {
+
+        // Check if user is blocked
+        if($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $blocked = $this->isBlocked($app);
+            if($blocked == 0){
+                return $app->redirect($app['url_generator']->generate('homepage'));
+            }
+        }
+
         $form = $app['form.factory']->createBuilder(ForumType::class, [])->getForm();
         $form->handleRequest($request);
 
@@ -158,8 +223,27 @@ class TopicController implements ControllerProviderInterface
         );
     }
 
+    /**
+     * Edit topic name action.
+     *
+     * @param Application $app
+     * @param int $slug
+     * @param int $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+
     public function editAction(Application $app, $slug, $id, Request $request)
     {
+
+        // Check if user is blocked
+        if($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $blocked = $this->isBlocked($app);
+            if($blocked == 0){
+                return $app->redirect($app['url_generator']->generate('homepage'));
+            }
+        }
+
         $topicRepository = new TopicRepository($app['db']);
         $data = $topicRepository->findOneById($id);
 
@@ -191,18 +275,57 @@ class TopicController implements ControllerProviderInterface
         );
     }
 
+    /**
+     * Delete topic action.
+     *
+     * @param Application $app
+     * @param int $slug
+     * @param int $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+
     public function deleteAction(Application $app, $slug, $id)
     {
+
+        // Check if user is blocked
+        if($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $blocked = $this->isBlocked($app);
+            if($blocked == 0){
+                return $app->redirect($app['url_generator']->generate('homepage'));
+            }
+        }
+
         $topicRepository = new TopicRepository($app['db']);
         $topicRepository->delete($id);
         return $app->redirect($app['url_generator']->generate('homepage'));
     }
+
+    /**
+     * Get currently logged in user id.
+     *
+     * @param Application $app
+     * @return mixed
+     */
 
     private function getUserID(Application $app)
     {
         $login = $app['security.token_storage']->getToken()->getUser()->getUsername();
         $userRepository = new UserRepository($app['db']);
         return $userRepository->getUserByLogin($login)['idForumUser'];
+    }
+
+    /**
+     * Find if currently logged in user is blocked.
+     *
+     * @param Application $app
+     * @return mixed
+     */
+
+    private function isBlocked(Application $app)
+    {
+        $login = $app['security.token_storage']->getToken()->getUser()->getUsername();
+        $userRepository = new UserRepository($app['db']);
+        return $userRepository->getUserByLogin($login)['blocked'];
     }
 }
 

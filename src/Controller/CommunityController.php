@@ -8,6 +8,7 @@ use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
 use Repository\CommunityRepository;
 use Repository\RoleRepository;
+use Repository\UserRepository;
 
 /**
  * Class CommunityController.
@@ -17,8 +18,12 @@ use Repository\RoleRepository;
 
 class CommunityController implements ControllerProviderInterface
 {
+
     /**
-     * {@inheritdoc}
+     * Routing settings
+     *
+     * @param Application $app
+     * @return mixed
      */
 
     public function connect(Application $app)
@@ -28,6 +33,7 @@ class CommunityController implements ControllerProviderInterface
         $controller->get('/{id}', [$this, 'viewAction'])->bind('community_view');
         return $controller;
     }
+
     /**
      * Index action.
      *
@@ -47,10 +53,28 @@ class CommunityController implements ControllerProviderInterface
         );
     }
 
+    /**
+     * View action
+     *
+     * @param Application $app
+     * @param int $id
+     * @return mixed
+     */
+
     public function viewAction(Application $app, $id)
     {
         $communityRepository = new CommunityRepository($app['db']);
         $roleRepository = new RoleRepository($app['db']);
+
+        $userID = -1;
+        if($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $userID = $this->getUserID($app);
+        }
+
+        $blocked = -1;
+        if($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $blocked = $this->isBlocked($app);
+        }
 
         return $app['twig']->render(
             'community/view.html.twig',
@@ -59,7 +83,37 @@ class CommunityController implements ControllerProviderInterface
                 'post' => $communityRepository->findUserPosts($id),
                 'id' => $id,
                 'adminrole' => $roleRepository->getAdminID(),
+                'current' => $userID,
+                'isblocked' => $blocked,
             ]
         );
+    }
+
+    /**
+     * Get currently logged in user id.
+     *
+     * @param Application $app
+     * @return mixed
+     */
+
+    private function getUserID(Application $app)
+    {
+        $login = $app['security.token_storage']->getToken()->getUser()->getUsername();
+        $userRepository = new UserRepository($app['db']);
+        return $userRepository->getUserByLogin($login)['idForumUser'];
+    }
+
+    /**
+     * Find if currently logged in user is blocked.
+     *
+     * @param Application $app
+     * @return mixed
+     */
+
+    private function isBlocked(Application $app)
+    {
+        $login = $app['security.token_storage']->getToken()->getUser()->getUsername();
+        $userRepository = new UserRepository($app['db']);
+        return $userRepository->getUserByLogin($login)['blocked'];
     }
 }

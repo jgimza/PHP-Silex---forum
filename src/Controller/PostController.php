@@ -20,8 +20,12 @@ use Form\PostType;
 
 class PostController implements ControllerProviderInterface
 {
+
     /**
-     * {@inheritdoc}
+     * Routing settings.
+     *
+     * @param Application $app
+     * @return mixed
      */
 
     public function connect(Application $app)
@@ -37,8 +41,26 @@ class PostController implements ControllerProviderInterface
         return $controller;
     }
 
+    /**
+     * Edit post action.
+     *
+     * @param Application $app
+     * @param int $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+
     public function editAction(Application $app, $id, Request $request)
     {
+
+        // Check if user is blocked
+        if($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $blocked = $this->isBlocked($app);
+            if($blocked == 0){
+                return $app->redirect($app['url_generator']->generate('homepage'));
+            }
+        }
+
         $postRepository = new PostRepository($app['db']);
         $topicRepository = new TopicRepository($app['db']);
         $data = $postRepository->findOneById($id);
@@ -79,8 +101,25 @@ class PostController implements ControllerProviderInterface
         );
     }
 
+    /**
+     * Delete post action.
+     *
+     * @param Application $app
+     * @param int $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+
     public function deleteAction(Application $app, $id)
     {
+
+        // Check if user is blocked
+        if($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $blocked = $this->isBlocked($app);
+            if($blocked == 0){
+                return $app->redirect($app['url_generator']->generate('homepage'));
+            }
+        }
+
         $postRepository = new PostRepository($app['db']);
         $topicRepository = new TopicRepository($app['db']);
         $data = $postRepository->findOneById($id);
@@ -114,10 +153,31 @@ class PostController implements ControllerProviderInterface
         return $app->redirect($app['url_generator']->generate('topic_index', array('slug' => $slug)));
     }
 
+    /**
+     * Get currently logged in user id.
+     *
+     * @param Application $app
+     * @return mixed
+     */
+
     private function getUserID(Application $app)
     {
         $login = $app['security.token_storage']->getToken()->getUser()->getUsername();
         $userRepository = new UserRepository($app['db']);
         return $userRepository->getUserByLogin($login)['idForumUser'];
+    }
+
+    /**
+     * Find if currently logged in user is blocked.
+     *
+     * @param Application $app
+     * @return mixed
+     */
+
+    private function isBlocked(Application $app)
+    {
+        $login = $app['security.token_storage']->getToken()->getUser()->getUsername();
+        $userRepository = new UserRepository($app['db']);
+        return $userRepository->getUserByLogin($login)['blocked'];
     }
 }

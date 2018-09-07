@@ -15,8 +15,12 @@ use Silex\Api\ControllerProviderInterface;
 
 class FaqController implements ControllerProviderInterface
 {
+
     /**
-     * {@inheritdoc}
+     * Routing settings.
+     *
+     * @param Application $app
+     * @return mixed
      */
 
     public function connect(Application $app)
@@ -25,6 +29,13 @@ class FaqController implements ControllerProviderInterface
         $controller->get('/', [$this, 'indexAction'])->bind('faq_index');
         return $controller;
     }
+
+    /**
+     * Index action.
+     *
+     * @param Application $app
+     * @return mixed
+     */
 
     public function indexAction(Application $app)
     {
