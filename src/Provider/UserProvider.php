@@ -59,6 +59,7 @@ class UserProvider implements UserProviderInterface
             true
         );
     }
+
     /**
      * Refresh user.
      *
@@ -80,6 +81,7 @@ class UserProvider implements UserProviderInterface
 
         return $this->loadUserByUsername($user->getUsername());
     }
+
     /**
      * Check if supports selected class.
      *
