@@ -22,8 +22,12 @@ use Validator\Constraints as CustomAssert;
 
 class RegisterType extends AbstractType
 {
+
     /**
-     * {@inheritdoc}
+     * Build register form.
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -166,16 +170,19 @@ class RegisterType extends AbstractType
             [
                 'label' => 'Data urodzenia',
                 'required' => true,
+                'days' => range(1,31),
+                'months' => range(1,12),
+                'years' => range(1940,2018),
                 'attr' => [
                     'max_length' => 32,
-
                 ],
             ]
         );
 
     }
+
     /**
-     * Configure options
+     * Configure options.
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
      */
@@ -188,8 +195,11 @@ class RegisterType extends AbstractType
             ]
         );
     }
+
     /**
-     * {@inheritdoc}
+     * Get block prefix.
+     *
+     * @return string
      */
 
     public function getBlockPrefix()

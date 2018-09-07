@@ -16,8 +16,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class TopicType extends AbstractType
 {
+
     /**
-     * {@inheritdoc}
+     * Build add topic form.
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -43,8 +47,11 @@ class TopicType extends AbstractType
             ]
         );
     }
+
     /**
-     * {@inheritdoc}
+     * Get block prefix.
+     *
+     * @return string
      */
 
     public function getBlockPrefix()

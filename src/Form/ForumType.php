@@ -1,6 +1,6 @@
 <?php
 /**
- * Topic add form.
+ * Topic name change form.
  */
 
 namespace Form;
@@ -17,8 +17,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class ForumType extends AbstractType
 {
+
     /**
-     * {@inheritdoc}
+     * Build topic name change form.
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -65,8 +69,11 @@ class ForumType extends AbstractType
             ]
         );
     }
+
     /**
-     * {@inheritdoc}
+     * Get block prefix.
+     *
+     * @return string
      */
 
     public function getBlockPrefix()

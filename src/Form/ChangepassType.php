@@ -1,6 +1,6 @@
 <?php
 /**
- * Register form.
+ * Change password form.
  */
 
 namespace Form;
@@ -17,8 +17,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class ChangepassType extends AbstractType
 {
+
     /**
-     * {@inheritdoc}
+     * Build change password form.
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -46,10 +50,11 @@ class ChangepassType extends AbstractType
                 ],
             ]);
     }
+
     /**
-     * Configure options
+     * Get block prefix.
      *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
+     * @return string
      */
 
     public function getBlockPrefix()
