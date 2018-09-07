@@ -1,6 +1,6 @@
 <?php
 /**
- * Unique Tag validator.
+ * Unique Login validator.
  */
 namespace Validator\Constraints;
 
@@ -8,13 +8,19 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 /**
- * Class UniqueTagValidator.
+ * Class UniqueLoginValidator.
  */
+
 class UniqueLoginValidator extends ConstraintValidator
 {
+
     /**
-     * {@inheritdoc}
+     * Validate uniqueness of an username
+     *
+     * @param mixed $value
+     * @param Constraint $constraint
      */
+
     public function validate($value, Constraint $constraint)
     {
         if (!$constraint->repository) {
