@@ -31,10 +31,11 @@ class SectionRepository
     {
         $this->db = $db;
     }
+
     /**
      * Fetch all records.
      *
-     * @return array Result
+     * @return array
      */
 
     public function findAll()
@@ -44,9 +45,10 @@ class SectionRepository
     }
 
     /**
-     * Query all records.
+     * Find single section by ID.
      *
-     * @return \Doctrine\DBAL\Query\QueryBuilder Result
+     * @param int $id
+     * @return array|mixed
      */
 
     public function findOneById($id)
@@ -57,6 +59,12 @@ class SectionRepository
         $result = $queryBuilder->execute()->fetch();
         return !$result ? [] : $result;
     }
+
+    /**
+     * Find data about section and count of topics in it.
+     *
+     * @return array
+     */
 
     public function findTopicData()
     {
@@ -71,6 +79,12 @@ class SectionRepository
         $result = $queryBuilder->execute()->fetchAll();
         return !$result ? [] : $result;
     }
+
+    /**
+     * Query all records.
+     *
+     * @return $this
+     */
 
     protected function queryAll()
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * User repository
+ * User repository.
  */
 
 namespace Repository;
@@ -22,6 +22,7 @@ class UserRepository
      */
 
     protected $db;
+
     /**
      * UserRepository constructor.
      *
@@ -32,6 +33,7 @@ class UserRepository
     {
         $this->db = $db;
     }
+
     /**
      * Loads user by login.
      *
@@ -74,20 +76,19 @@ class UserRepository
             throw $exception;
         }
     }
+
     /**
-     * Gets user data by login.
+     * Get user data by username.
      *
-     * @param string $login User login
-     * @throws \Doctrine\DBAL\DBALException
-     *
-     * @return array Result
+     * @param string $username
+     * @return array|mixed
      */
 
     public function getUserByLogin($username)
     {
         try {
             $queryBuilder = $this->db->createQueryBuilder();
-            $queryBuilder->select('u.idForumUser', 'u.username', 'u.password')
+            $queryBuilder->select('u.idForumUser', 'u.username', 'u.password', 'u.blocked')
                 ->from('forum_user', 'u')
                 ->where('u.username = :username')
                 ->setParameter(':username', $username, \PDO::PARAM_STR);
@@ -97,6 +98,7 @@ class UserRepository
             return [];
         }
     }
+
     /**
      * Gets user roles by User ID.
      *
@@ -129,10 +131,17 @@ class UserRepository
         }
     }
 
-    public function add($date)
+    /**
+     * Adds user personal data to database.
+     *
+     * @param $personal
+     */
+
+    public function addData($personal)
     {
-        $this->db->insert('forum_user', $date);
+        $this->db->insert('forum_user_data', $personal);
     }
+
     /**
      * Find for uniqueness.
      *
@@ -141,11 +150,6 @@ class UserRepository
      *
      * @return array Result
      */
-
-    public function addData($personal)
-    {
-        $this->db->insert('forum_user_data', $personal);
-    }
 
     public function findForUniqueness($name, $id = null)
     {
@@ -160,10 +164,33 @@ class UserRepository
         return $queryBuilder->execute()->fetchAll();
     }
 
+    /**
+     * Add user login and password data to database.
+     *
+     * @param $date
+     */
+
+    public function add($date)
+    {
+        $this->db->insert('forum_user', $date);
+    }
+
+    /**
+     * Update user data in database.
+     *
+     * @param $data
+     */
+
     public function update($data)
     {
         $this->db->update('forum_user', $data, ['idForumUser' => $data['idForumUser']]);
     }
+
+    /**
+     * Query all records.
+     *
+     * @return \Doctrine\DBAL\Query\QueryBuilder
+     */
 
     private function queryAll()
     {

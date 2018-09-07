@@ -21,6 +21,7 @@ class PostRepository
      */
 
     protected $db;
+
     /**
      * PostRepository constructor.
      *
@@ -32,10 +33,23 @@ class PostRepository
         $this->db = $db;
     }
 
+    /**
+     * Add post data.
+     *
+     * @param $data
+     */
+
     public function add($data)
     {
         $this->db->insert('forum_post', $data);
     }
+
+    /**
+     * Find one post by PostID.
+     *
+     * @param int $id
+     * @return array|mixed
+     */
 
     public function findOneById($id)
     {
@@ -47,13 +61,31 @@ class PostRepository
         return !$result ? [] : $result;
     }
 
+    /**
+     * Edit post data.
+     *
+     * @param $data
+     */
+
     public function edit($data){
         $this->db->update('forum_post', $data, ['idForumPost' => $data['idForumPost']]);
     }
 
+    /**
+     * Delete post data.
+     *
+     * @param int $id
+     */
+
     public function delete($id){
         $this->db->delete('forum_post', ['idForumPost' => $id]);
     }
+
+    /**
+     * Query all records.
+     *
+     * @return $this
+     */
 
     protected function queryAll()
     {

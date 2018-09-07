@@ -21,6 +21,7 @@ class SubforumRepository
      */
 
     protected $db;
+
     /**
      * SubforumRepository constructor.
      *
@@ -31,10 +32,11 @@ class SubforumRepository
     {
         $this->db = $db;
     }
+
     /**
-     * Fetch all records.
+     * Find all subforums.
      *
-     * @return array Result
+     * @return array
      */
 
     public function findAll()
@@ -42,6 +44,12 @@ class SubforumRepository
         $queryBuilder = $this->queryAll();
         return $queryBuilder->execute()->fetchAll();
     }
+
+    /**
+     * Query all records.
+     *
+     * @return $this
+     */
 
     protected function queryAll()
     {

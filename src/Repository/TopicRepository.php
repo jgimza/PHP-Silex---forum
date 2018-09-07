@@ -21,6 +21,7 @@ class TopicRepository
      */
 
     protected $db;
+
     /**
      * TopicRepository constructor.
      *
@@ -31,21 +32,24 @@ class TopicRepository
     {
         $this->db = $db;
     }
+
     /**
      * Fetch all records.
      *
      * @return array Result
      */
 
-    public function findAll($id)
+    public function findAll()
     {
         $queryBuilder = $this->queryAll();
         return $queryBuilder->execute()->fetchAll();
     }
+
     /**
-     * Query all records.
+     * Find single topic by ID.
      *
-     * @return \Doctrine\DBAL\Query\QueryBuilder Result
+     * @param int $id
+     * @return array|mixed
      */
 
     public function findOneById($id)
@@ -56,6 +60,13 @@ class TopicRepository
         $result = $queryBuilder->execute()->fetch();
         return !$result ? [] : $result;
     }
+
+    /**
+     * Check if topic is open or closed.
+     *
+     * @param int $id
+     * @return array|mixed
+     */
 
     public function findIfOpen($id)
     {
@@ -68,6 +79,13 @@ class TopicRepository
         return !$result ? [] : $result;
     }
 
+    /**
+     * Find post data and post creator data.
+     *
+     * @param int $id
+     * @return array
+     */
+
     public function findPostData($id)
     {
         $queryBuilder = $this->db->createQueryBuilder();
@@ -77,11 +95,18 @@ class TopicRepository
             ->leftjoin('p', 'forum_user', 'u', 'p.idForumUser = u.idForumUser')
             ->where('t.idForumTopic = :id')
             ->groupby('idForumPost')
-            ->addselect('u.username')
+            ->addselect('u.username', 'u.blocked')
             ->setParameter(':id', $id, \PDO::PARAM_INT);
         $result = $queryBuilder->execute()->fetchAll();
         return !$result ? [] : $result;
     }
+
+    /**
+     * Find number of posts in topic.
+     *
+     * @param int $id
+     * @return array
+     */
 
     public function findNofPosts($id)
     {
@@ -96,13 +121,26 @@ class TopicRepository
         return !$result ? [] : $result;
     }
 
+    /**
+     * Query all records.
+     *
+     * @return $this
+     */
+
     protected function queryAll()
     {
         $queryBuilder = $this->db->createQueryBuilder();
-        return $queryBuilder->select('t.nameTopic', 't.idForumSection', 't.idForumTopic', 's.idForumSection')
+        return $queryBuilder->select('t.nameTopic', 't.open', 't.idForumSection', 't.idForumTopic', 's.idForumSection')
             ->from('forum_topic', 't')
             ->leftjoin('t', 'forum_section', 's', 't.idForumSection = s.idForumSection');
     }
+
+    /**
+     * Find section name.
+     *
+     * @param int $id
+     * @return array
+     */
 
     public function findSectionName($id)
     {
@@ -114,6 +152,12 @@ class TopicRepository
         $result = $queryBuilder->execute()->fetchAll();
         return !$result ? [] : $result;
     }
+
+    /**
+     * Find count of user posts.
+     *
+     * @return array
+     */
 
     public function findUserPosts()
     {
@@ -127,25 +171,55 @@ class TopicRepository
         return !$result ? [] : $result;
     }
 
+    /**
+     * Add topic data to database.
+     *
+     * @param $data
+     */
+
     public function add($data)
     {
         $this->db->insert('forum_topic', $data);
     }
+
+    /**
+     * Edit topic data.
+     *
+     * @param $data
+     */
 
     public function edit($data)
     {
         $this->db->update('forum_topic', $data, ['idForumTopic' => $data['idForumTopic']]);
     }
 
+    /**
+     * Delete topic data.
+     *
+     * @param int $id
+     */
+
     public function delete($id)
     {
         $this->db->delete('forum_topic', ['idForumTopic' => $id]);
     }
 
+    /**
+     * Close topic.
+     *
+     * @param int $id
+     */
+
     public function closeTopic($id)
     {
         $this->db->update('forum_topic', ['open' => 0], ['idForumTopic' => $id]);
     }
+
+    /**
+     * Add post data.
+     *
+     * @param $data
+     */
 
     public function addpost($data)
     {

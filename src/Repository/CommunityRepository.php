@@ -31,6 +31,7 @@ class CommunityRepository
     {
         $this->db = $db;
     }
+
     /**
      * Fetch all records.
      *
@@ -42,10 +43,12 @@ class CommunityRepository
         $queryBuilder = $this->queryAll();
         return $queryBuilder->execute()->fetchAll();
     }
+
     /**
-     * Query all records.
+     * Find user by UserID.
      *
-     * @return \Doctrine\DBAL\Query\QueryBuilder Result
+     * @param int $id
+     * @return array|mixed
      */
 
     public function findOneById($id)
@@ -58,10 +61,17 @@ class CommunityRepository
         return !$result ? [] : $result;
     }
 
+    /**
+     * Find all user data including personal data.
+     *
+     * @param int $id
+     * @return array|mixed
+     */
+
     public function findData($id)
     {
         $queryBuilder = $this->db->createQueryBuilder();
-        $queryBuilder->select('u.username', 'u.idForumUserRole as role', 'd.name', 'd.surname', 'd.email', 'd.birthdate')
+        $queryBuilder->select('u.username', 'u.idForumUser', 'u.blocked', 'u.idForumUserRole as role', 'd.name', 'd.surname', 'd.email', 'd.birthdate')
             ->from('forum_user', 'u')
             ->leftjoin('u', 'forum_user_data', 'd', 'u.idForumUser = d.idForumUser')
             ->where('u.idForumUser = :id')
@@ -69,6 +79,13 @@ class CommunityRepository
         $result = $queryBuilder->execute()->fetch();
         return !$result ? [] : $result;
     }
+
+    /**
+     * Find count of user posts.
+     *
+     * @param int $id
+     * @return array|mixed
+     */
 
     public function findUserPosts($id)
     {
@@ -81,6 +98,12 @@ class CommunityRepository
         $result = $queryBuilder->execute()->fetch();
         return !$result ? [] : $result;
     }
+
+    /**
+     * Query all records.
+     *
+     * @return $this
+     */
 
     protected function queryAll()
     {

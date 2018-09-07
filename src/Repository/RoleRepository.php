@@ -33,6 +33,12 @@ class RoleRepository
         $this->db = $db;
     }
 
+    /**
+     * Get user role ID.
+     *
+     * @return mixed
+     */
+
     public function getUserID()
     {
         $queryBuilder = $this->db->createQueryBuilder();
@@ -42,6 +48,12 @@ class RoleRepository
             ->setParameter(':name', "ROLE_USER", \PDO::PARAM_STR);
         return $queryBuilder->execute()->fetch()['idForumUserRole'];
     }
+
+    /**
+     * Get admin role ID.
+     *
+     * @return mixed
+     */
 
     public function getAdminID()
     {
