@@ -226,6 +226,38 @@
                 <source>auth.makeadmin.label</source>
                 <target>Nadaj uprawnienia administratora</target>
             </trans-unit>
+            <trans-unit id="Nadaj uprawnienia użytkownikal">
+                <source>Nadaj uprawnienia użytkownika</source>
+                <target>Nadaj uprawnienia użytkownika</target>
+            </trans-unit>
+            <trans-unit id="auth.makeuser.label">
+                <source>auth.makeuser.label</source>
+                <target>Nadaj uprawnienia użytkownika</target>
+            </trans-unit>
+            <trans-unit id="auth.blockuser.label">
+                <source>auth.blockuser.label</source>
+                <target>Zablokuj konto użytkownika</target>
+            </trans-unit>
+            <trans-unit id="Zablokuj konto użytkownika">
+                <source>Zablokuj konto użytkownika</source>
+                <target>Zablokuj konto użytkownika</target>
+            </trans-unit>
+            <trans-unit id="auth.unblockuser.label">
+                <source>auth.unblockuser.label</source>
+                <target>Odblokuj konto użytkownika</target>
+            </trans-unit>
+            <trans-unit id="Odblokuj konto użytkownika">
+                <source>Odblokuj konto użytkownika</source>
+                <target>Odblokuj konto użytkownika</target>
+            </trans-unit>
+            <trans-unit id="Konto zablokowane">
+                <source>Konto zablokowane</source>
+                <target>Konto zablokowane</target>
+            </trans-unit>
+            <trans-unit id="Twoje konto zostało zablokowane">
+                <source>Twoje konto zostało zablokowane</source>
+                <target>Twoje konto zostało zablokowane</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

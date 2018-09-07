@@ -226,6 +226,22 @@
                 <source>auth.makeadmin.label</source>
                 <target>Give admin privileges</target>
             </trans-unit>
+            <trans-unit id="auth.blockuser.label">
+                <source>auth.blockuser.label</source>
+                <target>Block user account</target>
+            </trans-unit>
+            <trans-unit id="Zablokuj konto użytkownika">
+                <source>Zablokuj konto użytkownika</source>
+                <target>Block user account</target>
+            </trans-unit>
+            <trans-unit id="Konto zablokowane">
+                <source>Konto zablokowane</source>
+                <target>Account blocked</target>
+            </trans-unit>
+            <trans-unit id="Twoje konto zostało zablokowane">
+                <source>Twoje konto zostało zablokowane</source>
+                <target>Your account has been banned</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
