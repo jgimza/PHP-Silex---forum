@@ -11,10 +11,32 @@
     <p style="padding-bottom:20px; font-size:20px;">{{ 'Ilość postów'|trans }}: {{ post['posts'] }}</p>
     </div>
 
+    {% if isblocked !=0 %}
     {% if ( community['role'] != adminrole) %}
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ url('makeadmin', {'id': id}) }}" title="{{ 'auth.makeadmin.label'|trans }}" class="buttoncss3" onclick="return confirm('Jesteś pewien?')" >{{ 'Nadaj uprawnienia administratora'|trans }}</a>
         {% endif %}
     {% endif %}
-
+    {% if(community['role'] == adminrole) %}
+        {% if is_granted('ROLE_ADMIN') %}
+            {% if community['idForumUser'] != current %}
+            <a href="{{ url('makeuser', {'id': id}) }}" title="{{ 'auth.makeuser.label'|trans }}" class="buttoncss3" onclick="return confirm('Jesteś pewien?')" >{{ 'Nadaj uprawnienia użytkownika'|trans }}</a>
+        {% endif %}
+        {% endif %}
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% if ( community['blocked'] != 0) %}
+            {% if community['idForumUser'] != current %}
+        <a href="{{ url('blockuser', {'id': id}) }}" title="{{ 'auth.blockuser.label'|trans }}" class="buttoncss3" onclick="return confirm('Jesteś pewien?')" >{{ 'Zablokuj konto użytkownika'|trans }}</a>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% if ( community['blocked'] != 1) %}
+            {% if community['idForumUser'] != current %}
+            <a href="{{ url('unblockuser', {'id': id}) }}" title="{{ 'auth.unblockuser.label'|trans }}" class="buttoncss3" onclick="return confirm('Jesteś pewien?')" >{{ 'Odblokuj konto użytkownika'|trans }}</a>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+        {% endif %}
 {% endblock %}
