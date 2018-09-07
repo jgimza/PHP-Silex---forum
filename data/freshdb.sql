@@ -153,7 +153,7 @@ CREATE TABLE `forum_user` (
 
 LOCK TABLES `forum_user` WRITE;
 /*!40000 ALTER TABLE `forum_user` DISABLE KEYS */;
-INSERT INTO `forum_user` VALUES (1,'Administrator','$2y$13$bKrp525bm5zUeVZwhsxtvu2jpeEVrpwoQKpNvJcI5lObl3nnQaeQa',1),(2,'User','$2y$13$53zy7wfXWt9WApa1n1.ba.ZKXaShgKA2jlGLOW9Vi2mTx20mEdNG.',1);
+INSERT INTO `forum_user` VALUES (1,'Administrator','$2y$13$bKrp525bm5zUeVZwhsxtvu2jpeEVrpwoQKpNvJcI5lObl3nnQaeQa',0),(2,'User','$2y$13$53zy7wfXWt9WApa1n1.ba.ZKXaShgKA2jlGLOW9Vi2mTx20mEdNG.',1);
 /*!40000 ALTER TABLE `forum_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
