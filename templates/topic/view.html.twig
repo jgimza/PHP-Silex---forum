@@ -6,7 +6,10 @@
     {% for top in topic %}
         <div style="height:auto; min-height:250px; width:85%; margin:auto; border:1px solid #4CAF50; margin-bottom:20px;">
         <div style="width:15%; height:250px; min-width:200px!important; float:left; border:1px solid #4CAF50; margin-right:20px; border-left:none;">
-        <p style="padding:5px; font-weight:bold;">{{ 'Nazwa użytkownika'|trans }}<br> {{ top.username }}</p>
+            <p style="padding:5px; font-weight:bold;"><a href="{{ url('community_view', {'id': top.idForumUser}) }}">{{ top.username }}</a></p>
+            {% if top.blocked == 0 %}
+                <p style="padding:5px; font-weight:bold; color:red;">{{ 'Konto zablokowane'|trans }}</p>
+            {% endif %}
             <p style="padding:5px; font-weight:bold;">{{ 'Utworzono'|trans }}<br> {{ top.created }}</p>
             {% for row in posts %}
                 {% if row.idForumUser == top.idForumUser %}
@@ -15,13 +18,18 @@
             {% endfor %}
         </div>
 
+
         <div style="width:auto; height:auto;">
         {% if ( top.idForumUser == currentuserid) and open['open'] == 1 %}
+            {% if isblocked != 0 %}
             <a href="{{ url('post_edit', {'id': top.idForumPost}) }}" title="{{ 'auth.edit.label'|trans }}" class="buttoncss4">{{ 'Edytuj post'|trans }}</a>
             <a href="{{ url('post_delete', {'id': top.idForumPost}) }}" title="{{ 'auth.delete.label'|trans }}" class="buttoncss4">{{ 'Usuń post'|trans }}</a>
+            {% endif %}
             <br>
         {% elseif is_granted('ROLE_ADMIN') and open['open'] == 1 %}
+            {% if isblocked != 0 %}
                 <a href="{{ url('post_delete', {'id': top.idForumPost}) }}" title="{{ 'auth.delete.label'|trans }}" class="buttoncss4">{{ 'Usuń post'|trans }}</a>
+            {% endif %}
             <br>
                 {% endif %}
         <p style="padding:20px; margin-top:20px; margin-left:20px;">{{ top.content|raw }}</p>
@@ -31,21 +39,26 @@
 
     {% if ( open['open'] == 1) %}
         {% if is_granted('ROLE_ADMIN') %}
+            {% if isblocked != 0 %}
             <a href="{{ url('topic_close', {'id': id, 'slug': slug}) }}" title="{{ 'auth.close.label'|trans }}" class="buttoncss3" onclick="return confirm('Jesteś pewien?')" >{{ 'Zamknij temat'|trans }}</a>
+            {% endif %}
         {% endif %}
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <h1 style="text-align:center;">{{ 'Dodaj odpowiedź'|trans }}</h1>
-            {% form_theme form with ['bootstrap_3_horizontal_layout.html.twig'] %}
-    {{ form_start(form, { method: 'post', action: url('topic_view', {'id': id, 'slug': slug}) }) }}
-    {{ form_widget(form) }}
-    <input type="submit" class="buttoncss2" style="margin-bottom:150px;" title="{{ 'auth.answer.label'|trans }}" value="{{ 'Odpowiedz'|trans }}" class="btn btn-success" />
-    {{ form_end(form) }}
+            {% if isblocked == 1 %}
+                <h1 style="text-align:center;">{{ 'Dodaj odpowiedź'|trans }}</h1>
+                {% form_theme form with ['bootstrap_3_horizontal_layout.html.twig'] %}
+                {{ form_start(form, { method: 'post', action: url('topic_view', {'id': id, 'slug': slug}) }) }}
+                {{ form_widget(form) }}
+                <input type="submit" class="buttoncss2" style="margin-bottom:150px;" title="{{ 'auth.answer.label'|trans }}" value="{{ 'Odpowiedz'|trans }}" class="btn btn-success" />
+                {{ form_end(form) }}
+            {% else %}
+                <h1 style="color:red; font-size:28px; margin-bottom:100px; margin-top:80px; text-align:center;">{{ 'Twoje konto zostało zablokowane'|trans }}</h1>
+            {% endif %}
         {% else %}
             <p style="text-align:center; font-size:25px; margin-top:40px;">{{ 'Zaloguj się aby dodać odpowiedź'|trans }}</p>
         {% endif %}
     {% else %}
         <div style="width:300px; height:60px; background-color:red; margin:0 auto; margin-top:50px; margin-bottom:100px;"><p style="text-align:center; color:white; padding:15px;">{{ 'TEMAT ZAMKNIĘTY'|trans }}</p></div>
     {% endif %}
-
 {% endblock %}
