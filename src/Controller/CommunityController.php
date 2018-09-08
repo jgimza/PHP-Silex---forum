@@ -64,6 +64,10 @@ class CommunityController implements ControllerProviderInterface
     public function viewAction(Application $app, $id)
     {
         $communityRepository = new CommunityRepository($app['db']);
+        $community = $communityRepository->findOneById($id);
+        if(!$community){
+            return $app->redirect($app['url_generator']->generate('homepage'));
+        }
         $roleRepository = new RoleRepository($app['db']);
 
         $userID = -1;

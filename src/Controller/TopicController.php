@@ -65,6 +65,11 @@ class TopicController implements ControllerProviderInterface
     public function indexAction(Application $app, $slug)
     {
         $topicRepository = new TopicRepository($app['db']);
+        $topic = $topicRepository->findOneById($slug);
+
+        if(!$topic){
+            return $app->redirect($app['url_generator']->generate('homepage'));
+        }
 
         $blocked = -1;
         if($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -95,6 +100,12 @@ class TopicController implements ControllerProviderInterface
     public function viewAction(Application $app, $slug, $id, Request $request)
     {
         $topicRepository = new TopicRepository($app['db']);
+        $topic = $topicRepository->findOneById($id);
+
+        if(!$topic){
+            return $app->redirect($app['url_generator']->generate('homepage'));
+        }
+
         $form = $app['form.factory']->createBuilder(PostType::class, [])->getForm();
         $form->handleRequest($request);
 
