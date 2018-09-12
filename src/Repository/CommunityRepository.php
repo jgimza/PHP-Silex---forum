@@ -9,7 +9,6 @@ use Doctrine\DBAL\Connection;
 /**
  * Class CommunityRepository.
  *
- * @package Repository
  */
 
 class CommunityRepository
@@ -26,7 +25,6 @@ class CommunityRepository
      *
      * @param \Doctrine\DBAL\Connection $db
      */
-
     public function __construct(Connection $db)
     {
         $this->db = $db;
@@ -37,10 +35,10 @@ class CommunityRepository
      *
      * @return array Result
      */
-
     public function findAll()
     {
         $queryBuilder = $this->queryAll();
+
         return $queryBuilder->execute()->fetchAll();
     }
 
@@ -48,9 +46,9 @@ class CommunityRepository
      * Find user by UserID.
      *
      * @param int $id
+     *
      * @return array|mixed
      */
-
     public function findOneById($id)
     {
         $queryBuilder = $this->queryAll();
@@ -65,9 +63,9 @@ class CommunityRepository
      * Find all user data including personal data.
      *
      * @param int $id
+     *
      * @return array|mixed
      */
-
     public function findData($id)
     {
         $queryBuilder = $this->db->createQueryBuilder();
@@ -77,6 +75,7 @@ class CommunityRepository
             ->where('u.idForumUser = :id')
             ->setParameter(':id', $id, \PDO::PARAM_INT);
         $result = $queryBuilder->execute()->fetch();
+
         return !$result ? [] : $result;
     }
 
@@ -84,9 +83,9 @@ class CommunityRepository
      * Find count of user posts.
      *
      * @param int $id
+     *
      * @return array|mixed
      */
-
     public function findUserPosts($id)
     {
         $queryBuilder = $this->db->createQueryBuilder();
@@ -96,6 +95,7 @@ class CommunityRepository
             ->where('u.idForumUser = :id')
             ->setParameter(':id', $id, \PDO::PARAM_INT);
         $result = $queryBuilder->execute()->fetch();
+
         return !$result ? [] : $result;
     }
 
@@ -104,10 +104,10 @@ class CommunityRepository
      *
      * @return $this
      */
-
     protected function queryAll()
     {
         $queryBuilder = $this->db->createQueryBuilder();
+
         return $queryBuilder->select('t.idForumUser', 't.username')
             ->from('forum_user', 't');
     }

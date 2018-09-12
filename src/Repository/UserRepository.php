@@ -28,7 +28,6 @@ class UserRepository
      *
      * @param \Doctrine\DBAL\Connection $db
      */
-
     public function __construct(Connection $db)
     {
         $this->db = $db;
@@ -38,12 +37,13 @@ class UserRepository
      * Loads user by login.
      *
      * @param string $login User login
+     *
      * @throws UsernameNotFoundException
+     *
      * @throws \Doctrine\DBAL\DBALException
      *
      * @return array Result
      */
-
     public function loadUserByLogin($login)
     {
         try {
@@ -81,9 +81,9 @@ class UserRepository
      * Get user data by username.
      *
      * @param string $username
+     *
      * @return array|mixed
      */
-
     public function getUserByLogin($username)
     {
         try {
@@ -103,11 +103,11 @@ class UserRepository
      * Gets user roles by User ID.
      *
      * @param integer $userId User ID
+     *
      * @throws \Doctrine\DBAL\DBALException
      *
      * @return array Result
      */
-
     public function getUserRoles($userId)
     {
         $roles = [];
@@ -132,11 +132,10 @@ class UserRepository
     }
 
     /**
-     * Adds user personal data to database.
+     * Add user personal data to DB.
      *
-     * @param $personal
+     * @param array $personal
      */
-
     public function addData($personal)
     {
         $this->db->insert('forum_user_data', $personal);
@@ -150,7 +149,6 @@ class UserRepository
      *
      * @return array Result
      */
-
     public function findForUniqueness($name, $id = null)
     {
         $queryBuilder = $this->queryAll();
@@ -167,9 +165,8 @@ class UserRepository
     /**
      * Add user login and password data to database.
      *
-     * @param $date
+     * @param int $date
      */
-
     public function add($date)
     {
         $this->db->insert('forum_user', $date);
@@ -178,9 +175,8 @@ class UserRepository
     /**
      * Update user data in database.
      *
-     * @param $data
+     * @param int $data
      */
-
     public function update($data)
     {
         $this->db->update('forum_user', $data, ['idForumUser' => $data['idForumUser']]);
@@ -191,7 +187,6 @@ class UserRepository
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-
     private function queryAll()
     {
         $queryBuilder = $this->db->createQueryBuilder();

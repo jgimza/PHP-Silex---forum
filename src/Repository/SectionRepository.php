@@ -9,7 +9,6 @@ use Doctrine\DBAL\Connection;
 /**
  * Class SectionRepository.
  *
- * @package Repository
  */
 
 class SectionRepository
@@ -26,7 +25,6 @@ class SectionRepository
      *
      * @param \Doctrine\DBAL\Connection $db
      */
-
     public function __construct(Connection $db)
     {
         $this->db = $db;
@@ -37,10 +35,10 @@ class SectionRepository
      *
      * @return array
      */
-
     public function findAll()
     {
         $queryBuilder = $this->queryAll();
+
         return $queryBuilder->execute()->fetchAll();
     }
 
@@ -48,15 +46,16 @@ class SectionRepository
      * Find single section by ID.
      *
      * @param int $id
+     *
      * @return array|mixed
      */
-
     public function findOneById($id)
     {
         $queryBuilder = $this->queryAll();
         $queryBuilder->where('t.idForumSection = :id')
             ->setParameter(':id', $id, \PDO::PARAM_INT);
         $result = $queryBuilder->execute()->fetch();
+
         return !$result ? [] : $result;
     }
 
@@ -65,7 +64,6 @@ class SectionRepository
      *
      * @return array
      */
-
     public function findTopicData()
     {
         $queryBuilder = $this->db->createQueryBuilder();
@@ -77,6 +75,7 @@ class SectionRepository
             ->groupby('s.idForumSection')
             ->addselect('count(p.idForumPost) as posts');
         $result = $queryBuilder->execute()->fetchAll();
+
         return !$result ? [] : $result;
     }
 
@@ -85,7 +84,6 @@ class SectionRepository
      *
      * @return $this
      */
-
     protected function queryAll()
     {
         $queryBuilder = $this->db->createQueryBuilder();

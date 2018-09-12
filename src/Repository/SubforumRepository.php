@@ -9,7 +9,6 @@ use Doctrine\DBAL\Connection;
 /**
  * Class SubforumRepository.
  *
- * @package Repository
  */
 
 class SubforumRepository
@@ -27,7 +26,6 @@ class SubforumRepository
      *
      * @param \Doctrine\DBAL\Connection $db
      */
-
     public function __construct(Connection $db)
     {
         $this->db = $db;
@@ -38,10 +36,10 @@ class SubforumRepository
      *
      * @return array
      */
-
     public function findAll()
     {
         $queryBuilder = $this->queryAll();
+
         return $queryBuilder->execute()->fetchAll();
     }
 
@@ -50,10 +48,10 @@ class SubforumRepository
      *
      * @return $this
      */
-
     protected function queryAll()
     {
         $queryBuilder = $this->db->createQueryBuilder();
+
         return $queryBuilder->select('s.name', 's.idSubforum')
             ->from('forum_subforum', 's');
     }

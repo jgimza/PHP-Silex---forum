@@ -9,7 +9,6 @@ use Doctrine\DBAL\Connection;
 /**
  * Class PostRepository.
  *
- * @package Repository
  */
 
 class PostRepository
@@ -27,7 +26,6 @@ class PostRepository
      *
      * @param \Doctrine\DBAL\Connection $db
      */
-
     public function __construct(Connection $db)
     {
         $this->db = $db;
@@ -36,9 +34,8 @@ class PostRepository
     /**
      * Add post data.
      *
-     * @param $data
+     * @param int $data
      */
-
     public function add($data)
     {
         $this->db->insert('forum_post', $data);
@@ -48,9 +45,9 @@ class PostRepository
      * Find one post by PostID.
      *
      * @param int $id
+     *
      * @return array|mixed
      */
-
     public function findOneById($id)
     {
         $queryBuilder = $this->queryAll();
@@ -64,10 +61,10 @@ class PostRepository
     /**
      * Edit post data.
      *
-     * @param $data
+     * @param int $data
      */
-
-    public function edit($data){
+    public function edit($data)
+    {
         $this->db->update('forum_post', $data, ['idForumPost' => $data['idForumPost']]);
     }
 
@@ -76,8 +73,8 @@ class PostRepository
      *
      * @param int $id
      */
-
-    public function delete($id){
+    public function delete($id)
+    {
         $this->db->delete('forum_post', ['idForumPost' => $id]);
     }
 
@@ -86,10 +83,10 @@ class PostRepository
      *
      * @return $this
      */
-
     protected function queryAll()
     {
         $queryBuilder = $this->db->createQueryBuilder();
+
         return $queryBuilder->select('t.content', 't.idForumUser', 't.idForumPost', 't.idForumTopic')
             ->from('forum_post', 't');
     }
