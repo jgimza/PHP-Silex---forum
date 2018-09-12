@@ -11,7 +11,6 @@ use Repository\SectionRepository;
 /**
  * Class SectionController.
  *
- * @package Controller
  */
 
 class SectionController implements ControllerProviderInterface
@@ -21,9 +20,9 @@ class SectionController implements ControllerProviderInterface
      * Routing settings.
      *
      * @param Application $app
+     *
      * @return mixed
      */
-
     public function connect(Application $app)
     {
         $controller = $app['controllers_factory'];
@@ -31,6 +30,7 @@ class SectionController implements ControllerProviderInterface
         $controller->get('{id}', [$this, 'viewAction'])
             ->assert('id', '[1-9][0-9]*')
             ->bind('section_view');
+
         return $controller;
     }
 
@@ -38,9 +38,9 @@ class SectionController implements ControllerProviderInterface
      * Index action.
      *
      * @param Application $app
+     *
      * @return mixed
      */
-
     public function indexAction(Application $app)
     {
         $sectionRepository = new SectionRepository($app['db']);
@@ -57,10 +57,11 @@ class SectionController implements ControllerProviderInterface
      * View action.
      *
      * @param Application $app
-     * @param int $id
+     *
+     * @param int         $id
+     *
      * @return mixed
      */
-
     public function viewAction(Application $app, $id)
     {
         $sectionRepository = new SectionRepository($app['db']);

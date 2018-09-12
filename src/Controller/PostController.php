@@ -15,7 +15,6 @@ use Form\PostType;
 /**
  * Class PostController.
  *
- * @package Controller
  */
 
 class PostController implements ControllerProviderInterface
@@ -25,9 +24,9 @@ class PostController implements ControllerProviderInterface
      * Routing settings.
      *
      * @param Application $app
+     *
      * @return mixed
      */
-
     public function connect(Application $app)
     {
         $controller = $app['controllers_factory'];
@@ -38,6 +37,7 @@ class PostController implements ControllerProviderInterface
         $controller->get('/delete/{id}', [$this, 'deleteAction'])
             ->assert('id', '[1-9][0-9]*')
             ->bind('post_delete');
+
         return $controller;
     }
 
@@ -45,18 +45,20 @@ class PostController implements ControllerProviderInterface
      * Edit post action.
      *
      * @param Application $app
-     * @param int $id
-     * @param Request $request
+     *
+     * @param int         $id
+     *
+     * @param Request     $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-
     public function editAction(Application $app, $id, Request $request)
     {
 
         // Check if user is blocked
-        if($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if ($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
             $blocked = $this->isBlocked($app);
-            if($blocked == 0){
+            if (0 === $blocked) {
                 return $app->redirect($app['url_generator']->generate('homepage'));
             }
         }
@@ -65,14 +67,14 @@ class PostController implements ControllerProviderInterface
         $topicRepository = new TopicRepository($app['db']);
         $data = $postRepository->findOneById($id);
 
-        if ($data['idForumUser'] != $this->getUserID($app)) {
+        if ($data['idForumUser'] !== $this->getUserID($app)) {
             return $app->redirect($app['url_generator']->generate('homepage'));
         }
 
         $topic = $topicRepository->findOneById($data['idForumTopic']);
         $slug = $topic['idForumSection'];
 
-        if($topic['open'] == 0) {
+        if ($topic['open'] === 0) {
             return $app->redirect($app['url_generator']->generate('homepage'));
         }
 
@@ -90,8 +92,10 @@ class PostController implements ControllerProviderInterface
                     'message' => 'message.edit',
                 ]
             );
+
             return $app->redirect($app['url_generator']->generate('topic_view', array('id' => $data['idForumTopic'], 'slug' => $slug)));
         }
+
         return $app['twig']->render(
             'post/edit.html.twig',
             [
@@ -105,17 +109,18 @@ class PostController implements ControllerProviderInterface
      * Delete post action.
      *
      * @param Application $app
-     * @param int $id
+     *
+     * @param int         $id
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-
     public function deleteAction(Application $app, $id)
     {
 
         // Check if user is blocked
-        if($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if ($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
             $blocked = $this->isBlocked($app);
-            if($blocked == 0){
+            if (0 === $blocked) {
                 return $app->redirect($app['url_generator']->generate('homepage'));
             }
         }
@@ -125,14 +130,14 @@ class PostController implements ControllerProviderInterface
         $data = $postRepository->findOneById($id);
 
 
-        if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN') && $data['idForumUser'] != $this->getUserID($app)) {
+        if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN') && $data['idForumUser'] !== $this->getUserID($app)) {
             return $app->redirect($app['url_generator']->generate('homepage'));
         }
 
         $topic = $topicRepository->findOneById($data['idForumTopic']);
         $slug = $topic['idForumSection'];
 
-        if($topic['open'] == 0) {
+        if ($topic['open'] === 0) {
             return $app->redirect($app['url_generator']->generate('homepage'));
         }
 
@@ -157,13 +162,14 @@ class PostController implements ControllerProviderInterface
      * Get currently logged in user id.
      *
      * @param Application $app
+     *
      * @return mixed
      */
-
     private function getUserID(Application $app)
     {
         $login = $app['security.token_storage']->getToken()->getUser()->getUsername();
         $userRepository = new UserRepository($app['db']);
+
         return $userRepository->getUserByLogin($login)['idForumUser'];
     }
 
@@ -171,13 +177,14 @@ class PostController implements ControllerProviderInterface
      * Find if currently logged in user is blocked.
      *
      * @param Application $app
+     *
      * @return mixed
      */
-
     private function isBlocked(Application $app)
     {
         $login = $app['security.token_storage']->getToken()->getUser()->getUsername();
         $userRepository = new UserRepository($app['db']);
+
         return $userRepository->getUserByLogin($login)['blocked'];
     }
 }
