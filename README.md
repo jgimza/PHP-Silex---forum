@@ -1,5 +1,5 @@
-# PHP-Silex---forum
+# PHP-Silex discussion forum
 
-Internet discussion forum created with PHP Silex micro framework.
+Internet discussion forum created with PHP micro-framework Silex.
 
-Made by Jakub Gimza
+Made by Jakub Gimza.
